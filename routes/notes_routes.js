@@ -1,7 +1,8 @@
 'use strict';
 var Note = require('../models/note');
 
-module.exports = function(app) {
+//auth is a middleware which already processed the user comfirmation
+module.exports = function(app, auth) {
   app.get('/api/notes', function(req ,res) {
     Note.find({}, function(err, data) {
       if (err) return res.status(500).send('there was an error');
