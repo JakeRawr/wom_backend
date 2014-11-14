@@ -31,3 +31,4 @@ userSchema.methods.generateToken = function (secret) {
 };
 
 module.exports = mongoose.model('User', userSchema);
+

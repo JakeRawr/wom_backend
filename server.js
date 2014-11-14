@@ -3,10 +3,32 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
 var passport = require('passport');
+
 var app = express();
 
+var uriUtil = require('mongodb-uri');
+var mongodbUri = 'mongodb://heroku_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/notes_development');
+
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } }; 
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log('connected to local database');
+});
+
+// route middleware that will happen on every request
+app.use(function(req, res, next) {
+  console.log(req.method, req.url);
+  next();
+});
+
+//connect to local database
+mongoose.connect(mongooseUri, options);
 
 app.use(bodyparser.urlencoded({ extended: true}));
 app.use(bodyparser.json());
