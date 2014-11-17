@@ -11,11 +11,15 @@ var userSchema = mongoose.Schema({
     email: 'String',
     password: 'String'
   },
-  comments: 'Array'
+  comments: []
 });
 
 userSchema.methods.addNewComment = function(comment, restaurant) {
-  this.comments.push({restaurant: restaurant, comment: comment});
+  if (this.comments[0] === null){
+    this.comments = [{restaurant: restaurant, comment: comment}];
+  } else {
+    this.comments.push({restaurant: restaurant, comment: comment});
+  }
 };
 
 userSchema.methods.listComments = function (){
