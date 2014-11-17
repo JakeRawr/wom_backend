@@ -16,7 +16,7 @@ module.exports = function(app){
 			 if (err) return res.status(500).send('server error');
 			 //if the restaurant exists
 			 if (rest){
-			 		res.send(rest.name);
+			 		res.send(rest.name + ' already exists');
 			 }else{
 			 		var newRest = new Restaurant();
 			 		newRest.name = req.body.name;
@@ -29,6 +29,6 @@ module.exports = function(app){
 
 	})
 	app.post('/api/rest',function(req,res){
-		Restaurant.
+	//d	Restaurant.
 	})
 }
