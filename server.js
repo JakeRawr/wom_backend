@@ -5,14 +5,15 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 
 var app = express();
-
+/*
+//heroku test
 var uriUtil = require('mongodb-uri');
 var mongodbUri = 'mongodb://heroku_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } }; 
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 var db = mongoose.connection;
 
@@ -28,7 +29,10 @@ app.use(function(req, res, next) {
 });
 
 //connect to local database
-mongoose.connect(mongooseUri, options);
+mongoose.connect(mongooseUri, options);*/
+
+//local test
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/notes_development');
 
 app.use(bodyparser.urlencoded({ extended: true}));
 app.use(bodyparser.json());
@@ -41,16 +45,14 @@ require('./lib/passport')(passport);
 var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
 
 require('./routes/users_routes')(app, passport);
-//using traditional app
-//app.use(jwtauth); This add jwtauth middleware everywhere!
-//require('./routes/notes_routes')(app);
-
 
 //using router from Express 4.0
 var notesRouter = express.Router();
 notesRouter.use(jwtauth);
 require('./routes/notes_routes')(notesRouter);
 app.use('/v1', notesRouter);
+
+require('./routes/data_routes')(app);
 
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
