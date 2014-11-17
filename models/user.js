@@ -21,7 +21,7 @@ userSchema.methods.validPassword = function (password) {
 };
 
 userSchema.methods.generateToken = function (secret) {
-  var expires = moment().add(7, 'seconds').valueOf();
+  var expires = moment().add(7, 'days').valueOf();
   var self = this;
   var token = jwt.encode({
     iss: self._id,

@@ -26,4 +26,15 @@ module.exports = function (app, passport) {
       });
     });
   });
+
+  //returns collection of users
+  app.get('/test',function(req,res){
+  User.find({},function(err,data){
+    res.send(data);
+    });
+  })
 };
+
+
+
+//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZhNDg1YTA3Y2IxMTE1MWZmNWMzY2YiLCJleHBpcmUiOjE0MTY4NTYyODMxMDF9.kJoml66BzRrXAZR65DDz7pUyJmNX5wNo8RWEbQCKTd8
