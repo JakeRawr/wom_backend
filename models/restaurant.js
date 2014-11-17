@@ -10,12 +10,12 @@ var restaurantSchema = mongoose.Schema({
 
 restaurantSchema.methods.addNewComment = function(comment){
 	//if the comment category does not exist, add new object for that category to commentsCollection
-	if(!commentsCollection.hasOwnProperty(comment.category)){
+	if(!this.commentsCollection.hasOwnProperty(comment.category)){
 		var newCategory = {'name': comment.category, 'comments':[comment.str]}
-		commentsCollection[comment.category] = [comment.str];
+		this.commentsCollection[comment.category] = [comment.str];
 	}else{
 		//adds comment body to the appropriate comment category
-		commentsCollection[comment.category].push(comment.str);
+		this.commentsCollection[comment.category].push(comment.str);
 	}
 }
 
