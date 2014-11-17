@@ -28,12 +28,18 @@ app.use(function(req, res, next) {
 });
 
 //connect to local database
-mongoose.connect(mongooseUri, options);
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
+//mongoose.connect(mongooseUri, options);
 
 app.use(bodyparser.urlencoded({ extended: true}));
 app.use(bodyparser.json());
 app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
 //app.set('secret', process.env.SECRET || 'changethistoo');
+
+var restRouter = express.Router();
+require('./routes/restaurant_routes')(restRouter);
+app.use('/v2', restRouter);
+
 
 app.use(passport.initialize());
 
@@ -51,6 +57,9 @@ var notesRouter = express.Router();
 notesRouter.use(jwtauth);
 require('./routes/notes_routes')(notesRouter);
 app.use('/v1', notesRouter);
+
+
+
 
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
