@@ -11,7 +11,7 @@ var userSchema = mongoose.Schema({
     email: 'String',
     password: 'String'
   },
-  comments: []
+  comments: 'Array'
 });
 
 userSchema.methods.addNewComment = function(comment, restaurant) {

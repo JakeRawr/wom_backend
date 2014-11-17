@@ -18,6 +18,7 @@ module.exports = function (app, passport) {
       //check if the password confirmation is match
       if(req.body.password !== req.body.passwordConfirm) return res.send('passwords did not match');
       var newUser = new User();
+      newUser.name = req.body.name;
       newUser.basic.email = req.body.email;
       newUser.basic.password = newUser.generateHash(req.body.password);
       newUser.save (function (err, data) {
