@@ -22,7 +22,7 @@ module.exports = function(app){
 	});
 
 	//add a new restaurant to collection given the name
-	app.post('/addComment',function(req,res){
+	app.post('/addRest',function(req,res){
 		Restaurant.findOne({'name':req.body.name}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: post new rest');
 			if (rest) return res.send(req.body.name + ' already exists');
