@@ -13,16 +13,20 @@ module.exports = function(app) {
                               req.body.category,
                               req.body.restaurant);
     req.user.addNewComment(comment, req.body.restaurant);
+    req.user.save (function (err) {
+      if (err) return res.status(500).send('save error');
+    });
+    /*
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
       if (err) return res.status(500).send('server error: get comments');
       //if the restaurant exists, send all comments
       rest.addNewComment(comment);
-    });
+    });*/
     res.send('comment added');
   });
 
   //list users comments
   app.get('/list', function (req, res) {
-    res.json(req.user.listComment());
+    res.send(req.user.listComments());
   });
 };
