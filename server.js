@@ -43,7 +43,7 @@ app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
 
 var restRouter = express.Router();
 require('./routes/restaurant_routes')(restRouter);
-app.use('/v2', restRouter);
+app.use('/rest', restRouter);
 
 
 app.use(passport.initialize());
