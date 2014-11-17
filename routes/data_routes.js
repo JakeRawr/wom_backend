@@ -37,7 +37,7 @@ module.exports = function (app) {
       _.forEach(businesses, function (info) {
         businessesName.push(info.name);
       });
-      res.json(businessesName);
+      res.json({names: businessesName});
     });
   });
 };
