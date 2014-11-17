@@ -6,11 +6,21 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 
 var userSchema = mongoose.Schema({
+  name: 'String',
   basic: {
     email: 'String',
     password: 'String'
-  }
+  },
+  comments: []
 });
+
+userSchema.methods.addNewComment = function(comment, restaurant) {
+  this.comments.push({restaurant: restaurant, comment: comment});
+};
+
+userSchema.methods.listComments = function (){
+  return this.comments;
+};
 
 userSchema.methods.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

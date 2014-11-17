@@ -56,8 +56,8 @@ require('./routes/users_routes')(app, passport);
 //using router from Express 4.0
 var notesRouter = express.Router();
 notesRouter.use(jwtauth);
-require('./routes/notes_routes')(notesRouter);
-app.use('/v1', notesRouter);
+require('./routes/comments_routes')(notesRouter);
+app.use('/comment', notesRouter);
 
 require('./routes/yelpSearch_routes')(app);
 
