@@ -59,7 +59,7 @@ notesRouter.use(jwtauth);
 require('./routes/notes_routes')(notesRouter);
 app.use('/v1', notesRouter);
 
-require('./routes/data_routes')(app);
+require('./routes/yelpSearch_routes')(app);
 
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {

@@ -4,8 +4,9 @@ var User = require('../models/user');
 var _ = require('lodash');
 
 module.exports = function (app) {
-  // Request API access: http://www.yelp.com/developers/getting_started/api_access
   var yelp = require("node-yelp");
+
+    //set up oauth
     var client = yelp.createClient({
       oauth: {
         "consumer_key": "piI1pw71-iEVd38fPvhKuw",
@@ -20,7 +21,9 @@ module.exports = function (app) {
       }
     });
 
-// See http://www.yelp.com/developers/documentation/v2/search_api
+  // See http://www.yelp.com/developers/documentation/v2/search_api
+  // do http://api.yelp.com/v2/search?term=searchTerm&ll=lat,lon&category_filter=category&sort=1
+  // return list of restaurant names
   app.get('/search', function (req, res) {
     var lat = req.body.lat || 47.6231947;
     var lon = req.body.lon || -122.3372779;
