@@ -43,4 +43,34 @@ module.exports = function (app) {
       res.json({names: businessesName});
     });
   });
+
+  app.get('/search/test',function(req,res){
+    var lat = req.body.lat || 47.6231947;
+    var lon = req.body.lon || -122.3372779;
+    var searchTerm = req.body.searchTerm || "restaurant";
+    var category = req.body.category || "food";
+    client.search({
+      terms: searchTerm,
+      ll: lat + "," + lon,
+      category_filter: category,
+      sort: 1
+    }).then(function (data) {
+      var businessesName = [];
+      var businesses = _.map(data,businesses)[2];
+      _.forEach(businesses, function (info) {
+        businessesName.push(info);
+      });
+      res.json({names: businessesName});
+    });
+  })
+
+
+
+
+
+
+
+
+
+
 };
