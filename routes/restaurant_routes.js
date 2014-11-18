@@ -1,3 +1,4 @@
+
 'use strict';
 var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
