@@ -5,8 +5,8 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 
 var app = express();
-
-//heroku test
+/*
+//heroku test ////////////////////
 var uriUtil = require('mongodb-uri');
 var mongodbUri = 'mongodb://heroku_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
@@ -27,10 +27,14 @@ app.use(function(req, res, next) {
   console.log(req.method, req.url);
   next();
 });
+mongoose.connect(mongooseUri, options);
+
+///////////////////////// */
+
 
 //local test
-//mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
-mongoose.connect(mongooseUri, options);
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
+
 
 app.use(bodyparser.urlencoded({ extended: true}));
 app.use(bodyparser.json());
@@ -41,6 +45,9 @@ var restRouter = express.Router();
 require('./routes/restaurant_routes')(restRouter);
 app.use('/rest', restRouter);
 
+var categoryRouter = express.Router();
+require('./routes/categories_routes')(categoryRouter);
+app.use('/cat',categoryRouter);
 
 app.use(passport.initialize());
 
@@ -50,10 +57,10 @@ var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
 require('./routes/users_routes')(app, passport);
 
 //using router from Express 4.0
-var notesRouter = express.Router();
-notesRouter.use(jwtauth);
-require('./routes/comments_routes')(notesRouter);
-app.use('/comment', notesRouter);
+var authRouter = express.Router();
+authRouter.use(jwtauth);
+require('./routes/comments_routes')(authRouter);
+app.use('/comment', authRouter);
 
 require('./routes/yelpSearch_routes')(app);
 
