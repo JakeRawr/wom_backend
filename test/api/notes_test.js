@@ -2,6 +2,7 @@
 process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
+var mongoose = require('mongoose');
 chai.use(chaihttp);
 
 require('../../server');
@@ -10,7 +11,16 @@ var expect = chai.expect;
 var test = 1;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
 
+after(function (done) {
+  mongoose.connection.db.dropDatabase(function(){
+    mongoose.connection.close(function() {
+      done();
+    });
+  });
+});
+
 describe('user database tests', function() {
+
   var email = 'test123@example.com';
   it('should be unable to create an user with passwordConfrim fails', function(done) {
     chai.request(url) //change this
@@ -74,12 +84,12 @@ describe('user database tests', function() {
            'passwordConfirm': 'foobar123'})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.text).to.be.eql('cannot create that user');
+      expect(res.text).to.be.eql('email already existed');
       done();
     });
   });
 
-  it('should be unable to create an user with an unvailded email', function(done) {
+  it('should be unable to create an user whose username is taken', function(done) {
     chai.request(url) //change this
     .post('/api/users')
     .send({'email': "rename@example.com",
@@ -88,7 +98,7 @@ describe('user database tests', function() {
            'passwordConfirm': 'foobar123'})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.text).to.be.eql('Please enter a valid email');
+      expect(res.text).to.be.eql('username taken');
       done();
     });
   });

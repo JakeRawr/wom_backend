@@ -14,27 +14,26 @@ module.exports = function (app, passport) {
   app.post('/api/users', function (req, res) {
     if (!validator.validate(req.body.email)) return res.send('Please enter a valid email');
 
-    //check if username exists
-    User.findOne({'name': req.body.name}, function (err, user) {
-      if (err) return res.status(500).send('server error');
-      if (user) return res.send('username taken');
-    });
 
-    //check if email exists
-    User.findOne({'basic.email': req.body.email}, function (err, user) {
-      if (err) return res.status(500).send('server error');
-      if (user) return res.send('email already existed');
-    });
 
-    //check if the password confirmation is match
-    if(req.body.password !== req.body.passwordConfirm) return res.send('passwords did not match');
-    var newUser = new User();
-    newUser.name = req.body.name;
-    newUser.basic.email = req.body.email;
-    newUser.basic.password = newUser.generateHash(req.body.password);
-    newUser.save (function (err) {
+    //check if email exists or if username exists
+    User.findOne({ $or:[ {'basic.email': req.body.email}, {'name': req.body.name}]}, function (err, user) {
       if (err) return res.status(500).send('server error');
-      res.send({'jwt': newUser.generateToken(app.get('jwtSecret'))});
+      if (user) {
+        if (user.basic.email === req.body.email) return res.send('email already existed');
+        else return res.send('username taken');
+      }
+
+      //check if the password confirmation is match
+      if(req.body.password !== req.body.passwordConfirm) return res.send('passwords did not match');
+      var newUser = new User();
+      newUser.name = req.body.name;
+      newUser.basic.email = req.body.email;
+      newUser.basic.password = newUser.generateHash(req.body.password);
+      newUser.save (function (err) {
+        if (err) return res.status(500).send('server error');
+        res.send({'jwt': newUser.generateToken(app.get('jwtSecret'))});
+      });
     });
   });
 
