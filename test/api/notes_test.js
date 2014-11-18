@@ -8,16 +8,18 @@ chai.use(chaihttp);
 require('../../server');
 
 var expect = chai.expect;
-var test = 1;
+var test = 0;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
 
-after(function (done) {
-  mongoose.connection.db.dropDatabase(function(){
-    mongoose.connection.close(function() {
-      done();
+if(test){
+  after(function (done) {
+    mongoose.connection.db.dropDatabase(function(){
+      mongoose.connection.close(function() {
+        done();
+      });
     });
   });
-});
+}
 
 describe('user create/login database tests', function() {
 

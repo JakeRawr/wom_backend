@@ -8,8 +8,8 @@ module.exports = function(app){
 		Category.find({},function(err,data){
    	 res.send(data);
     });
-	})
+	});
 
-}
+};
 
 
