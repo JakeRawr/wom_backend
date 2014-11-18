@@ -19,7 +19,7 @@ after(function (done) {
   });
 });
 
-describe('user database tests', function() {
+describe('user create/login database tests', function() {
 
   var email = 'test123@example.com';
   it('should be unable to create an user with passwordConfrim fails', function(done) {
@@ -105,14 +105,31 @@ describe('user database tests', function() {
 });
 
 describe('wom database tests', function(){
-  it('should be able to add a restaurant', function(done) {
+  var testaurant = 'Testaurant';
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function(done) {
     chai.request(url) //change this
     .post('/rest/addRest')
-    .send({'name': 'Testaurant'})
+    .send({'name': testaurant})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('Testaurant has been added');
       done();
     });
   });
+
+  it('should be able to list comments of the restaurant if the restaurant exists', function(done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'name': testaurant})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.name).to.be.eql(testaurant);
+      expect(res.body).to.have.property('commentsCollection');
+      done();
+    });
+  });
+  it('should add a comment in a restaurant'); //send json rating,str,category,restaurant
+  it('should display a list of use\'s comments'); //send nothing
+  it('should display a list of comments from a restaurant'); //send params.name
+  it('should display categories'); //send nothing
 });
