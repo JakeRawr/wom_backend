@@ -38,4 +38,3 @@ module.exports = function (app, passport) {
 
 
 
-//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZhNDg1YTA3Y2IxMTE1MWZmNWMzY2YiLCJleHBpcmUiOjE0MTY4NTYyODMxMDF9.kJoml66BzRrXAZR65DDz7pUyJmNX5wNo8RWEbQCKTd8
