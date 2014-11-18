@@ -29,6 +29,6 @@ module.exports = function(app) {
 
   //list users own comments
   app.get('/list', function (req, res) {
-    res.send(req.user.listComments());
+    res.send(req.user.listComments()[0]);
   });
 };
