@@ -12,6 +12,7 @@ module.exports = function(app){
 		});
 	});
 
+
 	// returns list of comments from chosen restaurant given the name
 	app.get('/comments/:name',function(req,res){
 		Restaurant.findOne({'name':req.params.name}, function(err, rest){
@@ -25,12 +26,13 @@ module.exports = function(app){
 	app.post('/addRest',function(req,res){
 		Restaurant.findOne({'name':req.body.name}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: post new rest');
+		 	//should res.send comments of existing restaurant.
 			if (rest) return res.send(req.body.name + ' already exists');
 			var newRest = new Restaurant();
 			newRest.name = req.body.name;
 			newRest.save(function (err,data) {
 				if(err) return res.status(500).send('server error: post new rest');
-				res.send(newRest);
+				res.send(req.body.name + " has been added");
 			});
 		});
 	});
