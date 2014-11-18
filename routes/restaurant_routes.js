@@ -1,3 +1,4 @@
+
 'use strict';
 var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
@@ -27,10 +28,10 @@ module.exports = function(app){
 		Restaurant.findOne({'name':req.body.name}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: post new rest');
 		 	//should res.send comments of existing restaurant.
-			if (rest) return res.send(req.body.name + ' already exists');
+			if (rest) return res.send(rest);
 			var newRest = new Restaurant();
 			newRest.name = req.body.name;
-			newRest.save(function (err,data) {
+			newRest.save(function (err) {
 				if(err) return res.status(500).send('server error: post new rest');
 				res.send(req.body.name + " has been added");
 			});
