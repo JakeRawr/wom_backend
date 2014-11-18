@@ -1,3 +1,4 @@
+'use strict';
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');
@@ -7,7 +8,7 @@ module.exports = function(grunt) {
       options: {
         node: true
       },
-      src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
+      src: ['models/**/*.js', 'server.js', 'routes/**/*.js', 'lib/**/*.js']
     },
 
     simplemocha: {

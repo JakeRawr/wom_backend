@@ -2,6 +2,7 @@
 var bodyparser = require('body-parser');
 
 var User = require('../models/user');
+var validator = require("email-validator");
 
 module.exports = function (app, passport) {
   app.use(bodyparser.json());
@@ -11,20 +12,29 @@ module.exports = function (app, passport) {
 
   //generate new user
   app.post('/api/users', function (req, res) {
+    if (!validator.validate(req.body.email)) return res.send('Please enter a valid email');
+
+    //check if username exists
+    User.findOne({'name': req.body.name}, function (err, user) {
+      if (err) return res.status(500).send('server error');
+      if (user) return res.send('username taken');
+    });
+
+    //check if email exists
     User.findOne({'basic.email': req.body.email}, function (err, user) {
       if (err) return res.status(500).send('server error');
-      if (user) return res.send('cannot create that user');
+      if (user) return res.send('email already existed');
+    });
 
-      //check if the password confirmation is match
-      if(req.body.password !== req.body.passwordConfirm) return res.send('passwords did not match');
-      var newUser = new User();
-      newUser.name = req.body.name;
-      newUser.basic.email = req.body.email;
-      newUser.basic.password = newUser.generateHash(req.body.password);
-      newUser.save (function (err, data) {
-        if (err) return res.status(500).send('server error');
-        res.send({'jwt': newUser.generateToken(app.get('jwtSecret'))});
-      });
+    //check if the password confirmation is match
+    if(req.body.password !== req.body.passwordConfirm) return res.send('passwords did not match');
+    var newUser = new User();
+    newUser.name = req.body.name;
+    newUser.basic.email = req.body.email;
+    newUser.basic.password = newUser.generateHash(req.body.password);
+    newUser.save (function (err) {
+      if (err) return res.status(500).send('server error');
+      res.send({'jwt': newUser.generateToken(app.get('jwtSecret'))});
     });
   });
 
@@ -33,7 +43,7 @@ module.exports = function (app, passport) {
   User.find({},function(err,data){
     res.send(data);
     });
-  })
+  });
 };
 
 
