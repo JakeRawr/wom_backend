@@ -8,7 +8,7 @@ var app = express();
 
 //heroku test ////////////////////
 var uriUtil = require('mongodb-uri');
-var mongodbUri = 'mongodb://herokuss_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
+var mongodbUri = 'mongodb://heroku_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 
