@@ -8,7 +8,7 @@ module.exports = function(app) {
   //adding a comment
   app.post('/add', function (req, res) {
     var comment = new Comment(req.user.name,
-                              req.body.rating,
+                              req.body.crating,
                               req.body.str,
                               req.body.category,
                               req.body.restaurant);
