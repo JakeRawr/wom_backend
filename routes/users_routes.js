@@ -18,7 +18,7 @@ module.exports = function (app, passport) {
 
     //check if email exists or if username exists
     User.findOne({ $or:[ {'basic.email': req.body.email}, {'name': req.body.name}]}, function (err, user) {
-      if (err) return res.status(500).send('server error');
+      if (err) return res.status(500).send('email or name is taken');
       if (user) {
         if (user.basic.email === req.body.email) return res.send('email already existed');
         else return res.send('username taken');
@@ -31,7 +31,7 @@ module.exports = function (app, passport) {
       newUser.basic.email = req.body.email;
       newUser.basic.password = newUser.generateHash(req.body.password);
       newUser.save (function (err) {
-        if (err) return res.status(500).send('server error');
+        if (err) return res.status(500).send('could not create user');
         res.send({'jwt': newUser.generateToken(app.get('jwtSecret'))});
       });
     });

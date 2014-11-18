@@ -2,6 +2,7 @@
 'use strict';
 var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
+var validator = require('validator')
 
 
 module.exports = function(app){
@@ -25,6 +26,12 @@ module.exports = function(app){
 
 	//add a new restaurant to collection given the name
 	app.post('/addRest',function(req,res){
+		//var trimmed = validator.trim(req.body.name,[]).toLowerCase();
+		var str = req.body.name;
+		var nstr = str.replace(/\s+/g, '-').toLowerCase();
+		//res.send(validator.trim(nstr,[',']));
+		res.send(validator.ltrim(nstr,['/']));
+		/*
 		Restaurant.findOne({'name':req.body.name}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: post new rest');
 		 	//should res.send comments of existing restaurant.
@@ -35,7 +42,7 @@ module.exports = function(app){
 				if(err) return res.status(500).send('server error: post new rest');
 				res.send(req.body.name + " has been added");
 			});
-		});
+		});*/
 	});
 
 

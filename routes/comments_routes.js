@@ -14,14 +14,14 @@ module.exports = function(app) {
                               req.body.restaurant);
     req.user.addNewComment(comment, req.body.restaurant);
     req.user.save (function (err) {
-      if (err) return res.status(500).send('save error');
+      if (err) return res.status(500).send('could not update comment');
     });
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
-      if (err) return res.status(500).send('server error: get comments');
+      if (err) return res.status(500).send('internal server search error');
       //if the restaurant exists, send all comments
       rest.addNewComment(comment);
       rest.save(function (err, data) {
-        if (err) return res.status(500).send('save error');
+        if (err) return res.status(500).send('internal server error');
       });
     });
     res.send('comment added');
