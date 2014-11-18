@@ -1,4 +1,4 @@
-t'use strict';
+'use strict';
 
 var Category = require('../models/category');
 

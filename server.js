@@ -30,14 +30,7 @@ app.use(function(req, res, next) {
 });
 
 mongoose.connect(mongooseUri, options);
-<<<<<<< HEAD
-/////////////////////
-
-=======
-
-/////////////////////////
 */
->>>>>>> dccd573131a106fc9c925a1aaf5850630ef63e4e
 
 //local test
 mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
