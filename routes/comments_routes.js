@@ -16,13 +16,11 @@ module.exports = function(app) {
     req.user.save (function (err) {
       if (err) return res.status(500).send('save error');
     });
-   // console.log(comment);
-
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
       if (err) return res.status(500).send('server error: get comments');
       //if the restaurant exists, send all comments
+      console.log(rest);
       rest.addNewComment(comment);
-    
       rest.save(function(err){
          console.log('after route: '+ rest);
         if (err) return res.status(500).send('save error');
