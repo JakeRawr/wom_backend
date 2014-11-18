@@ -20,13 +20,14 @@ module.exports = function(app) {
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
       if (err) return res.status(500).send('server error: get comments');
       //if the restaurant exists, send all comments
-      console.log(rest);
       rest.addNewComment(comment);
-      rest.save(function (err) {
+      rest.save(function (err, data) {
         if (err) return res.status(500).send('save error');
+        res.send(data);
       });
+      //res.send(rest.commentsCollection);
     });
-    res.send('comment added');
+    //res.send('comment added');
   });
 
   //list users comments
