@@ -5,7 +5,7 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 
 var app = express();
-/*
+
 //heroku test
 var uriUtil = require('mongodb-uri');
 var mongodbUri = 'mongodb://heroku_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
@@ -28,13 +28,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-//connect to local database
-<<<<<<< HEAD
-mongoose.connect(mongooseUri, options);*/
-
 //local test
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
-//mongoose.connect(mongooseUri, options);
+//mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
+mongoose.connect(mongooseUri, options);
 
 app.use(bodyparser.urlencoded({ extended: true}));
 app.use(bodyparser.json());

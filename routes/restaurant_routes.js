@@ -12,6 +12,7 @@ module.exports = function(app){
 		});
 	});
 
+
 	// returns list of comments from chosen restaurant given the name
 	app.get('/comments/:name',function(req,res){
 		Restaurant.findOne({'name':req.params.name}, function(err, rest){
