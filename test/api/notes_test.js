@@ -1,5 +1,5 @@
 'use strict';
-//process.env.MONGO_URL = 'mongodb://localhost/notes_test';
+process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
