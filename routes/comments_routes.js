@@ -8,7 +8,7 @@ module.exports = function(app,nameValidate) {
   //adding a comment
   app.post('/add', nameValidate,function (req, res) {
     var comment = new Comment(req.user.name,
-                              req.body.crating,
+                              req.body.rating,
                               req.body.str,
                               req.body.category,
                               req.body.restaurant);
@@ -30,6 +30,6 @@ module.exports = function(app,nameValidate) {
 
   //list users own comments
   app.get('/list', function (req, res) {
-    res.send(req.user.listComments()[0]);
+    res.send({list : req.user.listComments()});
   });
 };
