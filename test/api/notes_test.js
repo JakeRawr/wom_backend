@@ -117,7 +117,7 @@ describe('wom database tests', function(){
   it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
     chai.request(url) //change this
     .post('/rest/addRest')
-    .send({'restaurant': testaurant})
+    .send({'restaurant': 'testaurant'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql( testaurant + ' has been added');
