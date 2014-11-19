@@ -137,7 +137,6 @@ describe('wom database tests', function(){
     });
   });
 
-  //send json rating,str,category,restaurant
   it('should add a comment in a restaurant', function (done) {
     chai.request(url) //change this
     .post('/comment/add')
@@ -153,7 +152,6 @@ describe('wom database tests', function(){
     });
   });
 
-  //send nothing
   it('should display a list of use\'s comments', function (done) {
     chai.request(url) //change this
     .get('/comment/list')
@@ -175,7 +173,8 @@ describe('wom database tests', function(){
       expect(res.body).to.have.property('comments');
       done();
     });
-  }); //send params.name
+  });
 
-  it('should display categories'); //send nothing
+  //url: cat/list
+  it('should display categories lists');
 });
