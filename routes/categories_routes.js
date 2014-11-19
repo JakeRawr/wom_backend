@@ -11,10 +11,9 @@ module.exports = function(app){
       if (err) return res.status(500).send('server error');
       if(data) {
 	      _.forEach(data, function (info) {
-	        list.push({'name': info.name, 'list': info.list});
+	        list.push(info.name);
 	      });
   		}
-
      	res.send({list:list});
     });
 	});
