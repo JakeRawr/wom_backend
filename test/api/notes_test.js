@@ -137,13 +137,25 @@ describe('wom database tests', function(){
     });
   });
 
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/gen/test/addGenre')
+    .send({'genre': 'burger','array': ['bun', 'meat','cheese','vege','sauce']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.name).to.be.eql(testaurant);
+      expect(res.text).to.have.property('Genre saved');
+      done();
+    });
+  });
+
   it('should add a comment in a restaurant', function (done) {
     chai.request(url) //change this
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': 'testaurant',
-           'rating': '4.5',
-           'category': 'burgers',
+           'rating': [5,4,3,2,1],
+           'genre': 'burgers',
            'str': 'testing add a comment'})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -157,8 +169,8 @@ describe('wom database tests', function(){
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': 'TEst*@)aurant',
-           'rating': '4.5',
-           'category': 'burgers',
+           'rating': [5,4,3,2,1],
+           'genre': 'burgers',
            'str': 'testing add a comment'})
     .end(function(err, res) {
       expect(err).to.eql(null);

@@ -30,10 +30,10 @@ app.use(function(req, res, next) {
 });
 
 //mongoose.connect(mongooseUri, options);
-mongoose.connect('mongodb://localhost/wom_development');
+//mongoose.connect('mongodb://localhost/wom_development');
 
 //local test
-//mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
+mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
 
 
 app.use(bodyparser.urlencoded({ extended: true}));
@@ -48,7 +48,7 @@ app.use('/rest', restRouter);
 
 var genreRouter = express.Router();
 require('./routes/genres_routes')(genreRouter);
-app.use('/cat',genreRouter);
+app.use('/gen',genreRouter);
 
 app.use(passport.initialize());
 

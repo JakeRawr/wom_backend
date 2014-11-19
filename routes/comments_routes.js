@@ -13,6 +13,7 @@ module.exports = function(app,nameValidate,addCat) {
 
     //from rating object;
     var catsArray = newRate.catsArray;
+
     for(var i = 0; i< rateArray.length; i++){
       newRate.catsArray[i] =  {'category': catsArray[i], 'rating': rateArray[i]};
     }
