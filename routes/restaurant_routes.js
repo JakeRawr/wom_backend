@@ -29,6 +29,7 @@ module.exports = function(app, nameValidate){
 		 	if (err) return res.status(500).send('server error: post new rest');
 		 	//should res.send comments of existing restaurant.
 			if (rest) return res.send(rest);
+
 			var newRest = new Restaurant();
 			newRest.name = req.body.restaurant;
 			newRest.save(function (err) {
