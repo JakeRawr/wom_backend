@@ -24,6 +24,8 @@ if(test) {
   });
 }
 
+
+
 var jwt;
 
 describe('user create/login database tests', function() {
@@ -143,8 +145,7 @@ describe('wom database tests', function(){
     .send({'genre': 'burger','array': ['bun', 'meat','cheese','vege','sauce']})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.name).to.be.eql(testaurant);
-      expect(res.text).to.have.property('Genre saved');
+      expect(res.text).to.have.eql('Genre Saved');
       done();
     });
   });
@@ -155,7 +156,7 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .send({'restaurant': 'testaurant',
            'rating': [5,4,3,2,1],
-           'genre': 'burgers',
+           'genre': 'burger',
            'str': 'testing add a comment'})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -170,7 +171,7 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .send({'restaurant': 'TEst*@)aurant',
            'rating': [5,4,3,2,1],
-           'genre': 'burgers',
+           'genre': 'burger',
            'str': 'testing add a comment'})
     .end(function(err, res) {
       expect(err).to.eql(null);
