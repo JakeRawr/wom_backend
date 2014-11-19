@@ -29,11 +29,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-mongoose.connect(mongooseUri, options);
+
+//mongoose.connect(mongooseUri, options);
 //mongoose.connect('mongodb://localhost/wom_development');
 
 //local test
-//mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
+mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
 
 
 app.use(bodyparser.urlencoded({ extended: true}));
@@ -59,9 +60,10 @@ require('./routes/users_routes')(app, passport);
 
 //using router from Express 4.0
 var addCat = require('./lib/addCat')();
+var ratingFill = require('./lib/rating_fill')();
 var authRouter = express.Router();
 authRouter.use(jwtauth);
-require('./routes/comments_routes')(authRouter,nameValidate,addCat);
+require('./routes/comments_routes')(authRouter,nameValidate,addCat,ratingFill);
 app.use('/comment', authRouter);
 
 require('./routes/yelpSearch_routes')(app);

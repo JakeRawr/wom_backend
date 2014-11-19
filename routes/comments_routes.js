@@ -1,23 +1,25 @@
 'use strict';
 
 var Restaurant = require('../models/restaurant');
-var Rating = require('../lib/rating');
 
 //auth is a middleware which already processed the user comfirmation
-module.exports = function(app,nameValidate,addCat) {
+module.exports = function(app,nameValidate,addCat,ratingFill) {
   //adding a comment
-  app.post('/add', nameValidate, addCat, function (req, res) {
+  app.post('/add', nameValidate, addCat, ratingFill, function (req, res) {
     var rateArray = req.body.rating;
 
-    var newRate = new Rating(req.user.name, req.body.str, req.body.genre, req.body.restaurant);
-
     //from rating object;
-    var catsArray = newRate.catsArray;
+    var catsArray = req.newRate.catsArray;
+
+
     for(var i = 0; i< rateArray.length; i++){
-      newRate.catsArray[i] =  {'category': catsArray[i], 'rating': rateArray[i]};
+      var object = {};
+      object[catsArray[i]] = rateArray[i];
+      //req.newRate.catsArray[i] =  {'category': catsArray[i], 'rating': rateArray[i]};
+      req.newRate.catsArray[i] = object;
     }
 
-    req.user.addNewRating(newRate);
+    req.user.addNewRating(req.newRate);
     req.user.save (function (err) {
       if (err) return res.status(500).send('could not update comment');
     });
@@ -25,7 +27,7 @@ module.exports = function(app,nameValidate,addCat) {
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
       if (err) return res.status(500).send('internal server search error');
       //if the restaurant exists, send all comments
-      rest.addRating(newRate);
+      rest.addRating(req.newRate);
       rest.save(function (err) {
         if (err) return res.status(500).send('internal server error');
       });

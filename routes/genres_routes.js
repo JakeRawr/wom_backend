@@ -25,21 +25,17 @@ module.exports = function(app){
     });
   });
 
-
-
 	app.post('/test/addGenre',function(req,res){
-		var arr = req.body.array;
 		var cat = new Genre();
 		cat.name = req.body.genre;
-		for(var i = 0; i < arr.length; i++){
-			cat.add(arr[i]);
+		for(var i = 0; i < req.body.array.length; i++){
+			cat.add(req.body.array[i]);
 		}
 		cat.save(function(err,data){
+      if(err) return res.status(500).send('server err');
 			res.send("Genre Saved");
-		})
-
-	})
-
+		});
+	});
 };
 
 
