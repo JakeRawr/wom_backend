@@ -198,9 +198,23 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.list[0]).to.have.property('name');
-      expect(res.body.list[0]).to.have.property('list');
+      expect(res.body).to.have.property('list');
       done();
+    });
+  });
+
+  describe('yelp api tests', function(){
+    it('should be able to get a list of nearby restaurant', function (done) {
+      chai.request(url) //change this
+      .get('/search')
+      .timeout(5000)
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.body).to.have.property('list');
+        expect(res.body.list[0]).to.have.property('name');
+        expect(res.body.list[0]).to.have.property('ll');
+        done();
+      });
     });
   });
 });
