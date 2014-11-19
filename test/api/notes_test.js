@@ -173,7 +173,8 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('comment');
+      expect(res.body).to.have.property('list');
+      expect(res.body.list[0]).to.have.property('comment');
       done();
     });
   });
@@ -191,5 +192,15 @@ describe('wom database tests', function(){
   });
 
   //url: cat/list
-  it('should display categories lists');
+  it('should display categories lists', function (done) {
+    chai.request(url) //change this
+    .get('/cat/list')
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.list[0]).to.have.property('name');
+      expect(res.body.list[0]).to.have.property('list');
+      done();
+    });
+  });
 });
