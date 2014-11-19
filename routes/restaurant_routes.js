@@ -35,7 +35,7 @@ module.exports = function(app, nameValidate){
 		 	//if the restaurant exists, send all comments
 		 	var list = [];
 		 	_.forEach(data.commentsCollection, function (info) {
-        list.push(info.category);
+        list.push(info.genre);
       });
 			res.send({list:list});
 		});

@@ -157,7 +157,7 @@ describe('wom database tests', function(){
     .send({'restaurant': 'testaurant',
            'rating': [5,4,3,2,1],
            'genre': 'burger',
-           'str': 'testing add a comment'})
+           'str': 'testing add a comment1'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -172,7 +172,7 @@ describe('wom database tests', function(){
     .send({'restaurant': 'TEst*@)aurant',
            'rating': [5,4,3,2,1],
            'genre': 'burger',
-           'str': 'testing add a comment'})
+           'str': 'testing add a comment2'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -182,12 +182,11 @@ describe('wom database tests', function(){
 
   it('should display a list of use\'s comments', function (done) {
     chai.request(url) //change this
-    .get('/comment/list')
+    .get('/comment/user/list')
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('list');
-      expect(res.body.list[0]).to.have.property('comment');
+      expect(res.body).to.have.property('ratingArray');
       done();
     });
   });
@@ -198,8 +197,8 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('category');
-      expect(res.body).to.have.property('comments');
+      expect(res.body).to.have.property('genre');
+      expect(res.body).to.have.property('ratings');
       done();
     });
   });
@@ -207,11 +206,23 @@ describe('wom database tests', function(){
   //url: cat/list
   it('should display categories lists', function (done) {
     chai.request(url) //change this
-    .get('/cat/list')
+    .get('/genre/list')
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('list');
+      done();
+    });
+  });
+
+  it('should display categories lists', function (done) {
+    chai.request(url) //change this
+    .get('/rest/genres/' + testaurant)
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body).to.have.property('list');
+      console.log(res.body.list);
       done();
     });
   });
