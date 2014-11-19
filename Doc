@@ -4,21 +4,7 @@ post('/api/users') - Creates a new user and adds to the collection if their emai
 
 get('rest/test/list') - outputs list of all restaurants, no arguments. 
 
-[
-	{
-		"name": "Testaurant",
-		"_id": "546bb3bad9044f7a780a5148",
-		"__v": 0,
-		"commentsCollection": [ ]
-	},
-	{
-		"name": "McDonalds",
-		"_id": "546bcdab3c450402008e15d7",
-		"__v": 0,
-		"commentsCollection": [ ]
-	}
-]
-
+[{"__v":1,"_id":"546c104963e56e73e1cc857b","name":"burger-king","commentsCollection":[{"category":"burgers","_id":"546c115663e56e73e1cc857e","comments":["I want to die"]}]},{"__v":1,"_id":"546c103a63e56e73e1cc857a","name":"mcdonalds","commentsCollection":[{"category":"burgers","_id":"546c117663e56e73e1cc857f","comments":["I love fries"]}]}]
 
 
 get('rest/comments/_name_) - outputs list of comments of specified restaurant, takes '_name_' variable as part of url.
@@ -31,7 +17,32 @@ post('/comment/add') - must be logged in for use. requires header parameter of j
 
 get('/comment/list') - must be logged in for use. requires header parameters of jwt:(token string).outputs all comments contained in user object in an json form with the comments in an array.{'list' : array}
 
+
+{
+	"list": [
+		{
+		"restaurant": "burger-king",
+		"comment": {
+			"user": "admin2",
+			"rating": "4",
+			"str": "I want to die",
+			"category": "burgers"
+			}
+		},
+		{
+		"restaurant": "mcdonalds",
+		"comment": {
+			"user": "admin2",
+			"rating": "5",
+			"str": "I love fries",
+			"category": "burgers"
+			}
+		}
+	]
+}
+
 get('/cat/list') - lists all categories that have been added.
+{"list":[{"name":"burgers","list":["burger-king","mcdonalds"]}]}
 
 
 
