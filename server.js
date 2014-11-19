@@ -40,9 +40,9 @@ app.use(bodyparser.urlencoded({ extended: true}));
 app.use(bodyparser.json());
 app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
 //app.set('secret', process.env.SECRET || 'changethistoo');
-
+var nameValidate = require('./lib/validator')();
 var restRouter = express.Router();
-require('./routes/restaurant_routes')(restRouter);
+require('./routes/restaurant_routes')(restRouter, nameValidate);
 app.use('/rest', restRouter);
 
 var categoryRouter = express.Router();
@@ -59,7 +59,7 @@ require('./routes/users_routes')(app, passport);
 //using router from Express 4.0
 var authRouter = express.Router();
 authRouter.use(jwtauth);
-require('./routes/comments_routes')(authRouter);
+require('./routes/comments_routes')(authRouter,nameValidate);
 app.use('/comment', authRouter);
 
 require('./routes/yelpSearch_routes')(app);
