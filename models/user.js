@@ -10,19 +10,15 @@ var userSchema = mongoose.Schema({
     email: 'String',
     password: 'String'
   },
-  comments: []
+  ratingObjects: []
 });
 
-userSchema.methods.addNewComment = function(comment, restaurant) {
-  if (this.comments[0] === null){
-    this.comments = [{restaurant: restaurant, comment: comment}];
-  } else {
-    this.comments.push({restaurant: restaurant, comment: comment});
-  }
+userSchema.methods.addNewRating = function(rating) {
+  this.ratingObjects.push(rating);
 };
 
-userSchema.methods.listComments = function (){
-  return this.comments;
+userSchema.methods.listRatingObjects = function (){
+  return this.ratingObjects;
 };
 
 userSchema.methods.generateHash = function (password) {
