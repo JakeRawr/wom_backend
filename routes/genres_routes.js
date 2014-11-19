@@ -14,7 +14,7 @@ module.exports = function(app){
 	        list.push(info.name);
 	      });
   		}
-     	res.send({list:list});
+    	res.send({list:list});
     });
 	});
 
@@ -28,10 +28,11 @@ module.exports = function(app){
 
 
 	app.post('/test/addGenre',function(req,res){
+		var arr = req.body.array;
 		var cat = new Genre();
 		cat.name = req.body.genre;
-		for(var i = 0; i < req.body.array; i++){
-			cat.add(req.body.array[i]);
+		for(var i = 0; i < arr.length; i++){
+			cat.add(arr[i]);
 		}
 		cat.save(function(err,data){
 			res.send("Genre Saved");

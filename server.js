@@ -29,8 +29,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-//mongoose.connect(mongooseUri, options);
-mongoose.connect('mongodb://localhost/wom_development');
+mongoose.connect(mongooseUri, options);
+//mongoose.connect('mongodb://localhost/wom_development');
 
 //local test
 //mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
