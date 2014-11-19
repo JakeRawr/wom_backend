@@ -6,7 +6,7 @@ module.exports = function(app){
 
 	app.get('/list',function(req,res){
 		Category.find({},function(err,data){
-   	 res.send(data);
+   	 res.send({'name': data.name, 'list': data.list});
     });
 	});
 };

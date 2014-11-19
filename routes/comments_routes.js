@@ -4,7 +4,7 @@ var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
 
 //auth is a middleware which already processed the user comfirmation
-module.exports = function(app,nameValidate) {
+module.exports = function(app,nameValidate,addCat) {
   //adding a comment
   app.post('/add', nameValidate,function (req, res) {
     var comment = new Comment(req.user.name,
