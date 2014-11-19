@@ -14,8 +14,6 @@ module.exports = function (app, passport) {
   app.post('/api/users', function (req, res) {
     if (!validator.validate(req.body.email)) return res.send('Please enter a valid email');
 
-
-
     //check if email exists or if username exists
     User.findOne({ $or:[ {'basic.email': req.body.email}, {'name': req.body.name}]}, function (err, user) {
       if (err) return res.status(500).send('email or name is taken');

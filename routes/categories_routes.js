@@ -9,8 +9,6 @@ module.exports = function(app){
    	 res.send(data);
     });
 	});
-
-
 };
 
 

@@ -15,11 +15,11 @@ module.exports = function(app, nameValidate){
 
 
 	// returns list of comments from chosen restaurant given the name
-	app.get('/comments/:name',function(req,res){
-		Restaurant.findOne({'name':req.params.name}, function(err, rest){
+	app.get('/comments/:restaurant',function(req,res){
+		Restaurant.findOne({'name':req.params.restaurant}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: get comments');
 		 	//if the restaurant exists, send all comments
-			if (rest) return res.send(rest.commentsCollection);
+			if (rest) return res.send(rest.commentsCollection[0]);
 		});
 	});
 
