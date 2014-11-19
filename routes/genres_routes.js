@@ -27,14 +27,18 @@ module.exports = function(app){
 
 
 
-	app.post('/add',function(req,res){
+	app.post('/test/addGenre',function(req,res){
 		var cat = new Genre();
 		cat.name = req.body.genre;
+		for(var i = 0; i < req.body.array; i++){
+			cat.add(req.body.array[i]);
+		}
 		cat.save(function(err,data){
-			res.send(data);
+			res.send("Genre Saved");
 		})
 
 	})
+
 };
 
 
