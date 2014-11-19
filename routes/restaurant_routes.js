@@ -25,18 +25,15 @@ module.exports = function(app, nameValidate){
 
 	//add a new restaurant to collection given the name
 	app.post('/addRest', nameValidate,function(req,res){
-		var str = req.body.restaurant;
-		var nstr = str.replace(/\s+/g, '-');
-		var regex = nstr.replace(/[\|&;\$%@"<>\(\)\+,\/!\']/g, "").toLowerCase();
-		Restaurant.findOne({'name': regex}, function(err, rest){
+		Restaurant.findOne({'name': req.body.restaurant}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: post new rest');
 		 	//should res.send comments of existing restaurant.
 			if (rest) return res.send(rest);
 			var newRest = new Restaurant();
-			newRest.name = regex;
+			newRest.name = req.body.restaurant;
 			newRest.save(function (err) {
 				if(err) return res.status(500).send('server error: post new rest');
-				res.send(regex + " has been added");
+				res.send(req.body.restaurant + " has been added");
 			});
 		});
 	});
