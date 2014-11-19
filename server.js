@@ -29,11 +29,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-mongoose.connect(mongooseUri, options);
+//mongoose.connect(mongooseUri, options);
 
 
 //local test
-//mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/wom_development');
+mongoose.connect(process.env.MONGO_URL || mongooseUri || 'mongodb://localhost/wom_development', options);
 
 
 app.use(bodyparser.urlencoded({ extended: true}));

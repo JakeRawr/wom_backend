@@ -6,7 +6,7 @@ var Restaurant = require('../models/restaurant');
 //auth is a middleware which already processed the user comfirmation
 module.exports = function(app,nameValidate,addCat) {
   //adding a comment
-  app.post('/add', nameValidate,function (req, res) {
+  app.post('/add', nameValidate, addCat,function (req, res) {
     var comment = new Comment(req.user.name,
                               req.body.rating,
                               req.body.str,
@@ -30,6 +30,6 @@ module.exports = function(app,nameValidate,addCat) {
 
   //list users own comments
   app.get('/list', function (req, res) {
-    res.send(req.user.listComments()[0]);
+    res.send({list : req.user.listComments()});
   });
 };
