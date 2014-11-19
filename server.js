@@ -59,9 +59,10 @@ require('./routes/users_routes')(app, passport);
 
 //using router from Express 4.0
 var addCat = require('./lib/addCat')();
+var ratingFill = require('./lib/rating_fill')();
 var authRouter = express.Router();
 authRouter.use(jwtauth);
-require('./routes/comments_routes')(authRouter,nameValidate,addCat);
+require('./routes/comments_routes')(authRouter,nameValidate,addCat,ratingFill);
 app.use('/comment', authRouter);
 
 require('./routes/yelpSearch_routes')(app);
