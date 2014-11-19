@@ -35,12 +35,12 @@ module.exports = function (app) {
       category_filter: category,
       sort: 1
     }).then(function (data) {
-      var businessesName = [];
+      var businessesNameLL = [];
       var businesses = _.map(data,businesses)[2];
       _.forEach(businesses, function (info) {
-        businessesName.push(info.name);
+        businessesNameLL.push({name: info.name, ll: info.location.coordinate.latitude+','+info.location.coordinate.longitude});
       });
-      res.json({names: businessesName});
+      res.json({list: businessesNameLL});
     });
   });
 
@@ -55,12 +55,12 @@ module.exports = function (app) {
       category_filter: category,
       sort: 1
     }).then(function (data) {
-      var businessesName = [];
+      var businessesNameLL = [];
       var businesses = _.map(data,businesses)[2];
       _.forEach(businesses, function (info) {
-        businessesName.push(info);
+        businessesNameLL.push({name: info.name, ll: info.location.coordinate.latitude+','+info.location.coordinate.longitude});
       });
-      res.json({names: businessesName});
+      res.json({list: businessesNameLL});
     });
   });
 };
