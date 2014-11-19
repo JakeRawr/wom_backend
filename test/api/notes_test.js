@@ -113,14 +113,14 @@ describe('user create/login database tests', function() {
 });
 
 describe('wom database tests', function(){
-  var testaurant = 'Testaurant';
+  var testaurant = 'testaurant';
   it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
     chai.request(url) //change this
     .post('/rest/addRest')
     .send({'restaurant': testaurant})
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.text).to.be.eql('Testaurant has been added');
+      expect(res.text).to.be.eql( testaurant + ' has been added');
       done();
     });
   });
@@ -141,7 +141,22 @@ describe('wom database tests', function(){
     chai.request(url) //change this
     .post('/comment/add')
     .set('jwt', jwt)
-    .send({'restaurant': testaurant,
+    .send({'restaurant': 'testaurant',
+           'rating': '4.5',
+           'category': 'burgers',
+           'str': 'testing add a comment'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('comment added');
+      done();
+    });
+  });
+
+  it('should add a comment in a restaurant with regex', function (done) {
+    chai.request(url) //change this
+    .post('/comment/add')
+    .set('jwt', jwt)
+    .send({'restaurant': 'TEst*@)aurant',
            'rating': '4.5',
            'category': 'burgers',
            'str': 'testing add a comment'})

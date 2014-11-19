@@ -63,14 +63,4 @@ module.exports = function (app) {
       res.json({names: businessesName});
     });
   });
-
-
-
-
-
-
-
-
-
-
 };

@@ -4,7 +4,7 @@ var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
 
 
-module.exports = function(app){
+module.exports = function(app, nameValidate){
 
 	//retruns all restaurants
 	app.get('/test/list', function(req,res){
@@ -24,8 +24,8 @@ module.exports = function(app){
 	});
 
 	//add a new restaurant to collection given the name
-	app.post('/addRest',function(req,res){
-		Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
+	app.post('/addRest', nameValidate,function(req,res){
+		Restaurant.findOne({'name': req.body.restaurant}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: post new rest');
 		 	//should res.send comments of existing restaurant.
 			if (rest) return res.send(rest);
