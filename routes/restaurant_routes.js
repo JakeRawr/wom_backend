@@ -19,7 +19,7 @@ module.exports = function(app){
 		Restaurant.findOne({'name':req.params.restaurant}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: get comments');
 		 	//if the restaurant exists, send all comments
-			if (rest) return res.send(rest.commentsCollection);
+			if (rest) return res.send(rest.commentsCollection[0]);
 		});
 	});
 

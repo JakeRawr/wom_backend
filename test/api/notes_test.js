@@ -165,6 +165,17 @@ describe('wom database tests', function(){
     });
   });
 
-  it('should display a list of comments from a restaurant'); //send params.name
+  it('should display a list of comments from a restaurant', function (done) {
+    chai.request(url) //change this
+    .get('/rest/comments/' + testaurant)
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body).to.have.property('category');
+      expect(res.body).to.have.property('comments');
+      done();
+    });
+  }); //send params.name
+
   it('should display categories'); //send nothing
 });
