@@ -139,7 +139,7 @@ describe('wom database tests', function(){
 
   it('should be able to add categories into a genre', function (done) {
     chai.request(url) //change this
-    .post('/gen/test/addGenre')
+    .post('/genre/test/addGenre')
     .send({'genre': 'burger','array': ['bun', 'meat','cheese','vege','sauce']})
     .end(function(err, res) {
       expect(err).to.eql(null);

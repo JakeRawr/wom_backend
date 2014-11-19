@@ -48,7 +48,7 @@ app.use('/rest', restRouter);
 
 var genreRouter = express.Router();
 require('./routes/genres_routes')(genreRouter);
-app.use('/gen',genreRouter);
+app.use('/genre',genreRouter);
 
 app.use(passport.initialize());
 
