@@ -2,14 +2,21 @@
 'use strict';
 var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
+var _ = require('lodash');
 
 
 module.exports = function(app, nameValidate){
 
 	//retruns all restaurants
-	app.get('/test/list', function(req,res){
+	app.get('/list', function(req,res){
 		Restaurant.find({},function(err,data){
-    res.send(data);
+		var list =  [];
+		if(data) {
+	      _.forEach(data, function (info) {
+	        list.push(info.name);
+	      });
+  		}
+    res.send({list:list});
 		});
 	});
 
@@ -20,6 +27,18 @@ module.exports = function(app, nameValidate){
 		 	if (err) return res.status(500).send('server error: get comments');
 		 	//if the restaurant exists, send all comments
 			if (rest) return res.send(rest.commentsCollection[0]);
+		});
+	});
+
+	app.get('/genres/:restaurant', function(req,res) {
+		Restaurant.findOne({'name':req.params.restaurant}, function(err, data){
+		 	if (err) return res.status(500).send('server error: get comments');
+		 	//if the restaurant exists, send all comments
+		 	var list = [];
+		 	_.forEach(data.commentsCollection, function (info) {
+        list.push(info.category);
+      });
+			res.send({list:list});
 		});
 	});
 
