@@ -1,7 +1,6 @@
 
 'use strict';
 var Rating = require('../lib/rating');
-var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
 var _ = require('lodash');
 

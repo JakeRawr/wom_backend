@@ -1,6 +1,6 @@
 'use strict';
 //genres of food (pizza, burgers)
-var Genre = require('../models/genres');
+var Genre = require('../models/genre');
 var _ = require('lodash');
 
 module.exports = function(app){

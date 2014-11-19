@@ -30,10 +30,10 @@ app.use(function(req, res, next) {
 });
 
 //mongoose.connect(mongooseUri, options);
-
+mongoose.connect('mongodb://localhost/wom_development');
 
 //local test
-mongoose.connect(process.env.MONGO_URL || mongooseUri || 'mongodb://localhost/wom_development', options);
+//mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
 
 
 app.use(bodyparser.urlencoded({ extended: true}));
