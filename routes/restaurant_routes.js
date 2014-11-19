@@ -1,5 +1,6 @@
 
 'use strict';
+var Rating = require('../lib/rating');
 var Comment = require('../lib/comment');
 var Restaurant = require('../models/restaurant');
 var _ = require('lodash');
@@ -19,7 +20,6 @@ module.exports = function(app, nameValidate){
     res.send({list:list});
 		});
 	});
-
 
 	// returns list of comments from chosen restaurant given the name
 	app.get('/comments/:restaurant',function(req,res){

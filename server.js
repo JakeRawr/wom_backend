@@ -46,9 +46,9 @@ require('./routes/restaurant_routes')(restRouter, nameValidate);
 app.use('/rest', restRouter);
 
 
-var categoryRouter = express.Router();
-require('./routes/categories_routes')(categoryRouter);
-app.use('/cat',categoryRouter);
+var genreRouter = express.Router();
+require('./routes/genres_routes')(genreRouter);
+app.use('/cat',genreRouter);
 
 app.use(passport.initialize());
 

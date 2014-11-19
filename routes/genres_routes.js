@@ -1,12 +1,12 @@
 'use strict';
-
-var Category = require('../models/category');
+//genres of food (pizza, burgers)
+var Genre = require('../models/genres');
 var _ = require('lodash');
 
 module.exports = function(app){
 
 	app.get('/list',function(req,res){
-		Category.find({},function(err,data){
+		Genre.find({},function(err,data){
 			var list =  [];
       if (err) return res.status(500).send('server error');
       if(data) {
@@ -19,7 +19,7 @@ module.exports = function(app){
 	});
 
   app.get('/list/:restaurant',function(req,res){
-    Category.find({name:req.params.restaurant},function(err,data){
+    Genre.find({name:req.params.restaurant},function(err,data){
       if (err) return res.status(500).send('server error');
       res.send({list:data.list});
     });
@@ -28,8 +28,8 @@ module.exports = function(app){
 
 
 	app.post('/add',function(req,res){
-		var cat = new Category();
-		cat.name = req.body.category;
+		var cat = new Genre();
+		cat.name = req.body.genre;
 		cat.save(function(err,data){
 			res.send(data);
 		})

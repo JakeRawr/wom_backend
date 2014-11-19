@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-
+//list of all genres
 var categorySchema = mongoose.Schema({
   name : 'String',
 	list : []

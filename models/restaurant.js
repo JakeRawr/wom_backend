@@ -1,24 +1,22 @@
 'use strict';
 var mongoose = require('mongoose');
-var Comment = require('../lib/comment');
+var Rating = require('../lib/rating');
 
 var restaurantSchema = mongoose.Schema({
 	name : 'String',
-	commentsCollection: [{category: 'String', comments: []}]
-										//object of objects pertaining to specific food categories (burgers, pizza, etc.)
-										// each object stores all comments for that category
+	commentsCollection: [{genre: 'String', ratings: []}]
 });
 
 
-restaurantSchema.methods.addNewComment = function(comments){
+restaurantSchema.methods.addRating = function(rating){
 	//if the comment category does not exist, add new object for that category to commentsCollection
   for (var i = 0; i < this.commentsCollection.length; i++){
-    if(this.commentsCollection[i].category == comments.category) {
-      (this.commentsCollection[i].comments).push(comments.str);
+    if(this.commentsCollection[i].genre == rating.genre) {
+      (this.commentsCollection[i].ratings).push(rating);
       return;
     }
   }
-  this.commentsCollection.push({category: comments.category, comments: [comments.str]});
+  this.commentsCollection.push({genre: rating.genre, ratings: [rating]});
 };
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);
