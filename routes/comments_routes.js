@@ -33,6 +33,7 @@ module.exports = function(app,nameValidate,addCat,ratingFill) {
     res.send('comment added');
   });
 
+
   //list users own comments
   app.get('/user/list', function (req, res) {
     res.send({ratingArray : req.user.listRatingObjects()});

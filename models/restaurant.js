@@ -15,33 +15,26 @@ restaurantSchema.methods.addRating = function(rating){
   for (var i = 0; i < this.commentsCollection.length; i++){
     if(this.commentsCollection[i].genre == rating.genre) {
       (this.commentsCollection[i].ratings).push(rating);
-      /*
-      var oldAvg = this.commentsCollection[i].avg;
+      var oldAvg = this.commentsCollection[i].avg[0];
+      if(oldAvg === undefined){
+         var newsAvg = new Avg(this.name,rating.genre,rating.catsArray);
+        newsAvg.counts++;
+        this.commentsCollection.push({genre: rating.genre, ratings: [rating], avg: [newsAvg]});
+        return;
+      }
+      console.log("The old average is this oneeee " + oldAvg);
       //sort through old/new cat array while updating the avg
       for(var j = 0; j< oldAvg.catAvgArray.length; i++){
         oldAvg.catAvgArray[i] = ((oldAvg.catAvgArray[i]*oldAvg.count) + rating.catsArray[i])/(oldAvg.count+1);
       }
       oldAvg.avgOverallScore = ((oldAvg.avgOverallScore*oldAvg.count) + rating.overallScore)/(oldAvg.count+1);
       oldAvg.count++;
-      */
       return;
     }
   }
   var newAvg = new Avg(this.name,rating.genre,rating.catsArray);
   newAvg.counts++;
-  this.commentsCollection.push({genre: rating.genre, ratings: [rating], avg: Avg});
+  this.commentsCollection.push({genre: rating.genre, ratings: [rating], avg: newAvg});
 };
-/*
-//accepts the rating array and rewRate object from request body and updates average.
-var updateAvg = function(newRate){
-  for (var i = 0; i < this.commentsCollection.length; i++){
-    if(this.commentsCollection[i].genre === newRate.genre) {
-      if(this.commentsCollection[i].avg[0]===null){
 
-      }
-      return;
-    }
-  }
-}
-*/
 module.exports = mongoose.model('Restaurant', restaurantSchema);

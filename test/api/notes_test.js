@@ -1,5 +1,5 @@
 'use strict';
-process.env.MONGO_URL = 'mongodb://localhost/wom_test';
+process.env.MONGO_URL = 'mongodb://localhost/wom_development';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -10,7 +10,7 @@ require('../../server');
 var expect = chai.expect;
 var test = 1;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
-
+/*
 
 if(test) {
   after(function (done) {
@@ -24,7 +24,7 @@ if(test) {
     });
   });
 }
-
+*/
 var jwt;
 
 describe('user create/login database tests', function() {

@@ -24,6 +24,12 @@ module.exports = function(app){
 			return res.send(data.cats);
 		});
 	});
+	//returns all restaurants associated with genre
+	app.get('/listRests/:genre',function(req,res){
+		Genre.findOne({'name':req.params.genre},function(err,data){
+			return res.send(data.restList);
+		});
+	});
 
 	app.post('/test/addGenre',function(req,res){
 		var cat = new Genre();

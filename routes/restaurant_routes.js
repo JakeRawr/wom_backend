@@ -62,7 +62,14 @@ module.exports = function(app, nameValidate){
 		});
 	});
 
+	 app.get('/test/avg/:restaurant',function(req,res){
+    Restaurant.findOne({'name': req.params.restaurant}, function(err, rest){
+      res.send(rest.commentsCollection[0].avg[0]);
+    });
+  });
 
+
+	
 };
 
 //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZhN2MyMTQwM2VkYTU4NDNmN2YwODIiLCJleHBpcmUiOjE0MTY4Njk1Mzc3NzR9.zC1uOtK_isDAjHcZW6nm-aARimTsKBKC-pInqZi2dPY
