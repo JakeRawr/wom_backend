@@ -36,6 +36,7 @@ app.use(function (req, res, next) {
 //mongoose.connect('mongodb://localhost/wom_development');
 //db test
 mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
@@ -61,6 +62,7 @@ require('./routes/comments_routes')(authRouter, nameValidate, addCat, ratingFill
 app.use('/comment', authRouter);
 require('./routes/yelpSearch_routes')(app);
 app.set('port', process.env.PORT || 3000);
-app.listen(3000, function () {
+
+app.listen(app.get('port'), function () {
   console.log('server running on port: %d', app.get('port'));
 });
