@@ -179,7 +179,7 @@ describe('wom database tests', function(){
     });
   });
 
-  it('should display a list of use\'s comments', function (done) {
+  it('should display a list of user\'s comments', function (done) {
     chai.request(url) //change this
     .get('/comment/user/list')
     .set('jwt', jwt)
