@@ -18,6 +18,13 @@ module.exports = function(app){
     });
 	});
 
+	//returns the category rating criteria for each genre
+	app.get('/cat/:genre',function(req,res){
+		Genre.findOne({'name':req.params.genre},function(err,data){
+			return res.send(data.cats);
+		});
+	});
+
 	app.post('/test/addGenre',function(req,res){
 		var cat = new Genre();
 		cat.name = req.body.genre;

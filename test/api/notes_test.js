@@ -11,6 +11,7 @@ var expect = chai.expect;
 var test = 0;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
 
+
 if(test) {
   after(function (done) {
     mongoose.connection.db.dropDatabase( function(err) {
@@ -23,7 +24,6 @@ if(test) {
     });
   });
 }
-
 
 var jwt;
 
@@ -203,7 +203,7 @@ describe('wom database tests', function(){
   });
 
   //url: cat/list
-  it('should display categories lists', function (done) {
+  it('should display all genre lists', function (done) {
     chai.request(url) //change this
     .get('/genre/list')
     .set('jwt', jwt)
@@ -214,7 +214,7 @@ describe('wom database tests', function(){
     });
   });
 
-  it('should display categories lists', function (done) {
+  it('should display genre lists from a restaurant', function (done) {
     chai.request(url) //change this
     .get('/rest/genres/' + testaurant)
     .set('jwt', jwt)
