@@ -14,8 +14,21 @@ module.exports = function(app){
 	        list.push(info.name);
 	      });
   		}
-     	res.send({list:list});
+    	res.send({list:list});
     });
+	});
+
+	//returns the category rating criteria for each genre
+	app.get('/cat/:genre',function(req,res){
+		Genre.findOne({'name':req.params.genre},function(err,data){
+			return res.send(data.cats);
+		});
+	});
+	//returns all restaurants associated with genre
+	app.get('/listRests/:genre',function(req,res){
+		Genre.findOne({'name':req.params.genre},function(err,data){
+			return res.send(data.restList);
+		});
 	});
 
 	app.post('/test/addGenre',function(req,res){

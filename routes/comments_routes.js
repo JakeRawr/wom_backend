@@ -11,11 +11,9 @@ module.exports = function(app,nameValidate,addCat,ratingFill) {
     //from rating object;
     var catsArray = req.newRate.catsArray;
 
-
     for(var i = 0; i< rateArray.length; i++){
       var object = {};
       object[catsArray[i]] = rateArray[i];
-      //req.newRate.catsArray[i] =  {'category': catsArray[i], 'rating': rateArray[i]};
       req.newRate.catsArray[i] = object;
     }
 
@@ -23,7 +21,7 @@ module.exports = function(app,nameValidate,addCat,ratingFill) {
     req.user.save (function (err) {
       if (err) return res.status(500).send('could not update comment');
     });
-
+    //adds new rating object returned from middleware to restaurant
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
       if (err) return res.status(500).send('internal server search error');
       //if the restaurant exists, send all comments
@@ -34,6 +32,7 @@ module.exports = function(app,nameValidate,addCat,ratingFill) {
     });
     res.send('comment added');
   });
+
 
   //list users own comments
   app.get('/user/list', function (req, res) {

@@ -8,7 +8,7 @@ var genre = mongoose.Schema({
   restList: []
 });
 
-//catRating = 'String'
+//catRating = 'String' for us to add 5 criteria for rating
 genre.methods.add = function(catRating){
 	this.cats.push(catRating);
 };

@@ -1,6 +1,7 @@
 
 'use strict';
 var Rating = require('../lib/rating');
+var Average = require('../lib/averageRating');
 var Restaurant = require('../models/restaurant');
 var _ = require('lodash');
 
@@ -25,10 +26,14 @@ module.exports = function(app, nameValidate){
 		Restaurant.findOne({'name':req.params.restaurant}, function(err, rest){
 		 	if (err) return res.status(500).send('server error: get comments');
 		 	//if the restaurant exists, send all comments
-			if (rest) return res.send(rest.commentsCollection[0]);
+			if (rest) {
+				var list = [];
+				return res.send(rest.commentsCollection[0]);
+			}
 		});
 	});
 
+	//returns the genres of restaurant
 	app.get('/genres/:restaurant', function(req,res) {
 		Restaurant.findOne({'name':req.params.restaurant}, function(err, data){
 		 	if (err) return res.status(500).send('server error: get comments');
@@ -57,7 +62,14 @@ module.exports = function(app, nameValidate){
 		});
 	});
 
+	 app.get('/test/avg/:restaurant',function(req,res){
+    Restaurant.findOne({'name': req.params.restaurant}, function(err, rest){
+      res.send(rest.commentsCollection[0].avg[0]);
+    });
+  });
 
+
+	
 };
 
 //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZhN2MyMTQwM2VkYTU4NDNmN2YwODIiLCJleHBpcmUiOjE0MTY4Njk1Mzc3NzR9.zC1uOtK_isDAjHcZW6nm-aARimTsKBKC-pInqZi2dPY
