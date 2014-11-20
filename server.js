@@ -31,10 +31,10 @@ app.use(function(req, res, next) {
 
 
 //mongoose.connect(mongooseUri, options);
-mongoose.connect('mongodb://localhost/wom_development');
+//mongoose.connect('mongodb://localhost/wom_development');
 
 //db test
-//mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
+mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
 
 
 app.use(bodyparser.urlencoded({ extended: true}));
@@ -42,8 +42,9 @@ app.use(bodyparser.json());
 app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
 //app.set('secret', process.env.SECRET || 'changethistoo');
 var nameValidate = require('./lib/validator')();
+var findGenre = require('./lib/findGenre')();
 var restRouter = express.Router();
-require('./routes/restaurant_routes')(restRouter, nameValidate);
+require('./routes/restaurant_routes')(restRouter, nameValidate, findGenre);
 app.use('/rest', restRouter);
 
 
@@ -69,6 +70,6 @@ app.use('/comment', authRouter);
 require('./routes/yelpSearch_routes')(app);
 
 app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'), function() {
+app.listen(3000, function() {
   console.log('server running on port: %d', app.get('port'));
 });

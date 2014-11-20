@@ -25,7 +25,7 @@ module.exports = function(app,nameValidate,addCat,ratingFill) {
     Restaurant.findOne({'name':req.body.restaurant}, function(err, rest){
       if (err) return res.status(500).send('internal server search error');
       //if the restaurant exists, send all comments
-      rest.addRating(req.newRate);
+      rest.addRating(req.newRate, req.body.rating);
       rest.save(function (err) {
         if (err) return res.status(500).send('internal server error');
       });
