@@ -4,7 +4,7 @@
   "description": "a note taking web app",
   "main": "server.js",
   "scripts": {
-    "test": "node_modules/grunt-cli/bin/grunt test"
+    "test": "node_modules/grunt-cli/bin/grunt"
   },
   "repository": {
     "type": "git",

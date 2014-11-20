@@ -8,7 +8,7 @@ chai.use(chaihttp);
 require('../../server');
 
 var expect = chai.expect;
-var test = 0;
+var test = 1;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
 
 

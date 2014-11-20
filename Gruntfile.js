@@ -12,9 +12,11 @@ module.exports = function(grunt) {
     },
 
     simplemocha: {
-      src: ['test/api/**/*.js']
+     // src: ['test/api/**/*.js']
+     src:['test/api/dbFillTest.js']
     }
   });
 
   grunt.registerTask('test', ['jshint', 'simplemocha']);
+  grunt.registerTask('default', ['test']);
 };
