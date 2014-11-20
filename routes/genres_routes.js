@@ -18,13 +18,6 @@ module.exports = function(app){
     });
 	});
 
-  app.get('/list/:restaurant',function(req,res){
-    Genre.find({name:req.params.restaurant},function(err,data){
-      if (err) return res.status(500).send('server error');
-      res.send({list:data.list});
-    });
-  });
-
 	app.post('/test/addGenre',function(req,res){
 		var cat = new Genre();
 		cat.name = req.body.genre;

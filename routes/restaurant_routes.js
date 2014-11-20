@@ -1,6 +1,7 @@
 
 'use strict';
 var Rating = require('../lib/rating');
+var Average = require('../lib/averageRating');
 var Restaurant = require('../models/restaurant');
 var _ = require('lodash');
 
@@ -29,6 +30,7 @@ module.exports = function(app, nameValidate){
 		});
 	});
 
+	//returns the genres of restaurant
 	app.get('/genres/:restaurant', function(req,res) {
 		Restaurant.findOne({'name':req.params.restaurant}, function(err, data){
 		 	if (err) return res.status(500).send('server error: get comments');
@@ -50,6 +52,7 @@ module.exports = function(app, nameValidate){
 
 			var newRest = new Restaurant();
 			newRest.name = req.body.restaurant;
+			newRest.average.push(new Average(req.body.restaurant,req.body.genre));
 			newRest.save(function (err) {
 				if(err) return res.status(500).send('server error: post new rest');
 				res.send(req.body.restaurant + " has been added");

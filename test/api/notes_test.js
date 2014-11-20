@@ -8,7 +8,7 @@ chai.use(chaihttp);
 require('../../server');
 
 var expect = chai.expect;
-var test = 1;
+var test = 0;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
 
 if(test) {
@@ -23,7 +23,6 @@ if(test) {
     });
   });
 }
-
 
 
 var jwt;
@@ -222,7 +221,6 @@ describe('wom database tests', function(){
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('list');
-      console.log(res.body.list);
       done();
     });
   });

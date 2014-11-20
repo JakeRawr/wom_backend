@@ -1,10 +1,11 @@
 'use strict';
 var mongoose = require('mongoose');
 var Rating = require('../lib/rating');
+var Avg = require('../lib/averageRating');
 
 var restaurantSchema = mongoose.Schema({
 	name : 'String',
-	commentsCollection: [{genre: 'String', ratings: []}]
+	commentsCollection: [{genre: 'String', ratings: [], avg: []}],
 });
 
 
