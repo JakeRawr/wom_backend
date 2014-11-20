@@ -25,6 +25,7 @@ if(test) {
   });
 }
 */
+/*
 var jwt;
 var testaurant = 'testaurant';
 describe('user create/login database tests', function() {
@@ -45,7 +46,7 @@ describe('user create/login database tests', function() {
     });
   });
 
-
+*/
   it('should be able to login with existing email and a token sent back', function (done) {
       chai.request(url) //change this
       .get('/api/users')
@@ -63,8 +64,8 @@ it('should add a comment in a restaurant', function (done) {
     .set('jwt', jwt)
     .send({'restaurant': 'testaurant',
            'rating': [3,3,3,3,3],
-           'genre': 'burger',
-           'str': 'Comment, 10:27am'})
+           'genre': 'pizza',
+           'str': 'Comment, 1:12am'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');

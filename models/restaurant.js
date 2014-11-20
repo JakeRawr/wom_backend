@@ -24,8 +24,8 @@ restaurantSchema.methods.addRating = function(rating){
       }
       console.log("The old average is this oneeee " + oldAvg);
       //sort through old/new cat array while updating the avg
-      for(var j = 0; j< oldAvg.catAvgArray.length; i++){
-        oldAvg.catAvgArray[i] = ((oldAvg.catAvgArray[i]*oldAvg.count) + rating.catsArray[i])/(oldAvg.count+1);
+      for(var j = 0; j< oldAvg.catAvgArray.length; j++){
+        oldAvg.catAvgArray[j] = ((oldAvg.catAvgArray[j]*oldAvg.count) + rating.catsArray[j])/(oldAvg.count+1);
       }
       oldAvg.avgOverallScore = ((oldAvg.avgOverallScore*oldAvg.count) + rating.overallScore)/(oldAvg.count+1);
       oldAvg.count++;
