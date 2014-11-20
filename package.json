@@ -1,7 +1,7 @@
 {
-  "name": "sea-b24-notes",
+  "name": "wom_backend",
   "version": "0.1.0",
-  "description": "a note taking web app",
+  "description": "world of mouth - backend",
   "main": "server.js",
   "scripts": {
     "test": "node_modules/grunt-cli/bin/grunt"

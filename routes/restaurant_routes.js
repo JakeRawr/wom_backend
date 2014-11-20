@@ -6,7 +6,7 @@ var Restaurant = require('../models/restaurant');
 var _ = require('lodash');
 
 
-module.exports = function(app, nameValidate){
+module.exports = function(app, nameValidate, findGenre){
 
 	//retruns all restaurants
 	app.get('/list', function(req,res){
@@ -62,14 +62,27 @@ module.exports = function(app, nameValidate){
 		});
 	});
 
-	 app.get('/test/avg/:restaurant',function(req,res){
+	 app.get('/avg/:genre/:restaurant', findGenre, function(req,res){
     Restaurant.findOne({'name': req.params.restaurant}, function(err, rest){
-      res.send(rest.commentsCollection[0].avg[0]);
+    	var overall;
+    	var list = [];
+      _.forEach(rest.commentsCollection, function (restData) {
+      	if(restData.genre === req.params.genre) {
+      		overall = restData.avg[0];
+
+      		for(var i = 0; i< req.genreCats.length; i++){
+			      var object = {};
+			      object[req.genreCats[i]] = restData.avg[0].catAvgArray[i];
+			      overall.catAvgArray[i] = object;
+			    };
+			    res.send(overall);
+      	};
+      });
     });
   });
 
 
-	
+
 };
 
 //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZhN2MyMTQwM2VkYTU4NDNmN2YwODIiLCJleHBpcmUiOjE0MTY4Njk1Mzc3NzR9.zC1uOtK_isDAjHcZW6nm-aARimTsKBKC-pInqZi2dPY

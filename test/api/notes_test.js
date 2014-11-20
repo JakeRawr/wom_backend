@@ -1,5 +1,5 @@
 'use strict';
-process.env.MONGO_URL = 'mongodb://localhost/wom_development';
+process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -10,7 +10,7 @@ require('../../server');
 var expect = chai.expect;
 var test = 1;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
-/*
+
 
 if(test) {
   after(function (done) {
@@ -24,7 +24,7 @@ if(test) {
     });
   });
 }
-*/
+
 var jwt;
 
 describe('user create/login database tests', function() {
@@ -115,6 +115,7 @@ describe('user create/login database tests', function() {
 
 describe('wom database tests', function(){
   var testaurant = 'testaurant';
+  var genre = 'burger';
   it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
     chai.request(url) //change this
     .post('/rest/addRest')
@@ -141,7 +142,7 @@ describe('wom database tests', function(){
   it('should be able to add categories into a genre', function (done) {
     chai.request(url) //change this
     .post('/genre/test/addGenre')
-    .send({'genre': 'burger','array': ['bun', 'meat','cheese','vege','sauce']})
+    .send({'genre': genre,'array': ['bun', 'meat','cheese','vege','sauce']})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.have.eql('Genre Saved');
@@ -155,7 +156,7 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .send({'restaurant': 'testaurant',
            'rating': [5,4,3,2,1],
-           'genre': 'burger',
+           'genre': genre,
            'str': 'testing add a comment1'})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -169,8 +170,8 @@ describe('wom database tests', function(){
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': 'TEst*@)aurant',
-           'rating': [5,4,3,2,1],
-           'genre': 'burger',
+           'rating': [1,2,4,2,3],
+           'genre': genre,
            'str': 'testing add a comment2'})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -179,7 +180,7 @@ describe('wom database tests', function(){
     });
   });
 
-  it('should display a list of use\'s comments', function (done) {
+  it('should display a list of user\'s comments', function (done) {
     chai.request(url) //change this
     .get('/comment/user/list')
     .set('jwt', jwt)
@@ -221,6 +222,18 @@ describe('wom database tests', function(){
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('list');
+      done();
+    });
+  });
+
+  it('should display avg rating of a genre of a restaurant', function (done) {
+    chai.request(url) //change this
+    .get('/rest/avg/' + genre + '/' + testaurant)
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      console.log(res.body);
+      //expect(res.body).to.have.property('list');
       done();
     });
   });
