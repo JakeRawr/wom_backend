@@ -27,44 +27,27 @@ if(test) {
 */
 
 var jwt;
+var testaurant = 'testaurant';
 describe('user create/login database tests', function() {
   it('should be able to login with existing email and a token sent back', function (done) {
       chai.request(url) //change this
       .get('/api/users')
       .auth('example@example.com','passwrod')
       .end(function(err, res) {
+        jwt = res.body.jwt;
         expect(err).to.eql(null);
         expect(res.body).to.have.property('jwt');
         done();
       });
    });
-
-});
-
-describe('wom database tests', function(){
-   var testaurant = 'testaurant';
-  it('should be able to list comments of the restaurant if the restaurant exists', function (done) {
-    chai.request(url) //change this
-    .post('/rest/addRest')
-    .send({'restaurant': testaurant})
-    .end(function(err, res) {
-      console.log(res.body.commentsCollection[0].ratings);
-      expect(err).to.eql(null);
-      expect(res.body.name).to.be.eql(testaurant);
-      expect(res.body).to.have.property('commentsCollection');
-      done();
-    });
-  });
-
-/*
-  it('should add a comment in a restaurant', function (done) {
+it('should add a comment in a restaurant', function (done) {
     chai.request(url) //change this
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': 'testaurant',
            'rating': [5,5,5,5,5],
            'genre': 'burger',
-           'str': 'testing add a comment1'})
+           'str': 'Comment, 10:13am'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -72,7 +55,18 @@ describe('wom database tests', function(){
     });
   });
 
-*/
+   
+  it('should display a list of comments from a restaurant', function (done) {
+    chai.request(url) //change this
+    .get('/rest/comments/' + testaurant)
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body).to.have.property('genre');
+      expect(res.body).to.have.property('ratings');
+      done();
+    });
+  });
 
   it('should display genre lists from a restaurant', function (done) {
     chai.request(url) //change this

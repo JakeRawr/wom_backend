@@ -15,6 +15,7 @@ restaurantSchema.methods.addRating = function(rating){
   for (var i = 0; i < this.commentsCollection.length; i++){
     if(this.commentsCollection[i].genre == rating.genre) {
       (this.commentsCollection[i].ratings).push(rating);
+      /*
       var oldAvg = this.commentsCollection[i].avg;
       //sort through old/new cat array while updating the avg
       for(var j = 0; j< oldAvg.catAvgArray.length; i++){
@@ -22,6 +23,7 @@ restaurantSchema.methods.addRating = function(rating){
       }
       oldAvg.avgOverallScore = ((oldAvg.avgOverallScore*oldAvg.count) + rating.overallScore)/(oldAvg.count+1);
       oldAvg.count++;
+      */
       return;
     }
   }
