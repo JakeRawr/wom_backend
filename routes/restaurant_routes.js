@@ -74,9 +74,9 @@ module.exports = function(app, nameValidate, findGenre){
 			      var object = {};
 			      object[req.genreCats[i]] = restData.avg[0].catAvgArray[i];
 			      overall.catAvgArray[i] = object;
-			    };
-			    res.send(overall);
-      	};
+			    }
+			    res.send({avgObject: overall});
+      	}
       });
     });
   });

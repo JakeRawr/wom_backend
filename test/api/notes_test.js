@@ -127,6 +127,28 @@ describe('wom database tests', function(){
     });
   });
 
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'restaurant': 'pizza-hut'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('pizza-hut has been added');
+      done();
+    });
+  });
+
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'restaurant': 'taco-bell'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('taco-bell has been added');
+      done();
+    });
+  });
+
   it('should be able to list comments of the restaurant if the restaurant exists', function (done) {
     chai.request(url) //change this
     .post('/rest/addRest')
@@ -142,7 +164,84 @@ describe('wom database tests', function(){
   it('should be able to add categories into a genre', function (done) {
     chai.request(url) //change this
     .post('/genre/test/addGenre')
-    .send({'genre': genre,'array': ['bun', 'meat','cheese','vege','sauce']})
+    .send({'genre': genre,'array': ['bun', 'meat','sauce','veggies','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'pizza','array': ['sauce', 'crust','toppings','cheese','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'tacos','array': ['freshness', 'shell','fillings','sauce','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'pho','array': ['broth', 'noodles','meat','veggies','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'sushi-rolls','array': ['rice', 'fish','seaweed','creativity','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'corn-beef-hash','array': ['hashbrown', 'corn beef','hot factor','portion size','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'banh-mi','array': ['bread', 'sauce','meat','veggies','presentation']})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.have.eql('Genre Saved');
+      done();
+    });
+  });
+
+  it('should be able to add categories into a genre', function (done) {
+    chai.request(url) //change this
+    .post('/genre/test/addGenre')
+    .send({'genre': 'ramen','array': ['broth', 'noodles','meat','creativity','presentation']})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.have.eql('Genre Saved');
@@ -173,6 +272,51 @@ describe('wom database tests', function(){
            'rating': [1,2,4,2,3],
            'genre': genre,
            'str': 'testing add a comment2'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('comment added');
+      done();
+    });
+  });
+
+  it('should add a comment with a different genre', function (done) {
+    chai.request(url) //change this
+    .post('/comment/add')
+    .set('jwt', jwt)
+    .send({'restaurant': 'TEst*@)aurant',
+           'rating': [1,2,4,2,3],
+           'genre': 'pizza',
+           'str': 'testing add a comment3'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('comment added');
+      done();
+    });
+  });
+
+  it('should add a comment with a different genre with a different restaurant', function (done) {
+    chai.request(url) //change this
+    .post('/comment/add')
+    .set('jwt', jwt)
+    .send({'restaurant': 'pizza-hut',
+           'rating': [1,2,4,2,3],
+           'genre': 'pizza',
+           'str': 'testing add a comment4'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('comment added');
+      done();
+    });
+  });
+
+  it('should add a comment with a different genre', function (done) {
+    chai.request(url) //change this
+    .post('/comment/add')
+    .set('jwt', jwt)
+    .send({'restaurant': 'taco-bell',
+           'rating': [2,2,4,2,3],
+           'genre': 'tacos',
+           'str': 'testing add a comment4'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -226,14 +370,36 @@ describe('wom database tests', function(){
     });
   });
 
+  it('should display the restaurants given a genre', function (done) {
+    chai.request(url) //change this
+    .get('/genre/listRests/' + genre)
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body).to.have.property('restList');
+      done();
+    });
+  });
+
+  it('should display the rating categories array', function (done) {
+    chai.request(url) //change this
+    .get('/genre/cat/' + genre)
+    .set('jwt', jwt)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body).to.have.property('cats');
+      done();
+    });
+  });
+
+
   it('should display avg rating of a genre of a restaurant', function (done) {
     chai.request(url) //change this
     .get('/rest/avg/' + genre + '/' + testaurant)
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      console.log(res.body);
-      //expect(res.body).to.have.property('list');
+      expect(res.body).to.have.property('avgObject');
       done();
     });
   });

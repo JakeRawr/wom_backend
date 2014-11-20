@@ -12,8 +12,8 @@ module.exports = function(grunt) {
     },
 
     simplemocha: {
-     // src: ['test/api/**/*.js']
-     src:['test/api/dbFillTest.js']
+     src: ['test/api/**/notes_test.js']
+     //src:['test/api/dbFillTest.js']
     }
   });
 
