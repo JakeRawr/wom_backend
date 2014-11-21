@@ -41,7 +41,7 @@ module.exports = function (app, nameValidate, findGenre) {
       res.send({ list: list });
     });
   });
-  //add a new restaurant to collection given the name
+  //add a new restaurant to collection, given the name
   app.post('/addRest', nameValidate, function (req, res) {
     Restaurant.findOne({ 'name': req.body.restaurant }, function (err, rest) {
       if (err)
@@ -58,6 +58,7 @@ module.exports = function (app, nameValidate, findGenre) {
       });
     });
   });
+  //returns the average object of given genre and restaurant
   app.get('/avg/:genre/:restaurant', findGenre, function (req, res) {
     Restaurant.findOne({ 'name': req.params.restaurant }, function (err, rest) {
       var overall;
@@ -75,4 +76,4 @@ module.exports = function (app, nameValidate, findGenre) {
       });
     });
   });
-};  //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZhN2MyMTQwM2VkYTU4NDNmN2YwODIiLCJleHBpcmUiOjE0MTY4Njk1Mzc3NzR9.zC1uOtK_isDAjHcZW6nm-aARimTsKBKC-pInqZi2dPY
+}; 

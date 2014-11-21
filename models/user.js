@@ -1,4 +1,5 @@
 'use strict';
+//user model
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jwt-simple');

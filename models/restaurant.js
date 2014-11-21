@@ -1,4 +1,5 @@
 'use strict';
+//restaurant model
 var mongoose = require('mongoose');
 var Rating = require('../lib/rating');
 var Avg = require('../lib/averageRating');
@@ -10,14 +11,12 @@ var restaurantSchema = mongoose.Schema({
       avg: []
     }]
 });
+//adds the new rating to the commentsCollection and updates averages
 restaurantSchema.methods.addRating = function (rating, newRatingArray) {
-  //if the comment category does not exist, add new object for that category to commentsCollection
-  //and create a new average as the new ratings numbers
   for (var i = 0; i < this.commentsCollection.length; i++) {
     if (this.commentsCollection[i].genre == rating.genre) {
       this.commentsCollection[i].ratings.push(rating);
       var oldAvg = this.commentsCollection[i].avg[0];
-      //sort through old/new cat array while updating the avg
       for (var j = 0; j < oldAvg.catAvgArray.length; j++) {
         oldAvg.catAvgArray[j] = (oldAvg.catAvgArray[j] * oldAvg.counts + newRatingArray[j]) / (oldAvg.counts + 1);
       }

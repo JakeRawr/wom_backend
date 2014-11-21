@@ -1,5 +1,5 @@
 'use strict';
-//genres of food (pizza, burgers)
+//routes for adding and listing genres
 var Genre = require('../models/genre');
 var _ = require('lodash');
 module.exports = function (app) {
@@ -28,6 +28,7 @@ module.exports = function (app) {
       res.send({ restList: data.restList });
     });
   });
+  //adding a new genre (not for users)
   app.post('/test/addGenre', function (req, res) {
     var cat = new Genre();
     cat.name = req.body.genre;

@@ -1,4 +1,5 @@
 'use strict';
+//used for filling the database
 process.env.MONGO_URL = 'mongodb://localhost/wom_development';
 var chai = require('chai');
 var chaihttp = require('chai-http');
