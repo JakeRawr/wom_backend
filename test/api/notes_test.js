@@ -1,5 +1,5 @@
 'use strict';
-process.env.MONGO_URL = 'mongodb://localhost/wom_test';
+//process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -11,7 +11,7 @@ var expect = chai.expect;
 var test = 1;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
 
-
+/*
 if(test) {
   after(function (done) {
     mongoose.connection.db.dropDatabase( function(err) {
@@ -23,7 +23,7 @@ if(test) {
       done();
     });
   });
-}
+}*/
 
 var jwt;
 
@@ -376,7 +376,7 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('restList');
+      expect(res.body).to.have.property('list');
       done();
     });
   });

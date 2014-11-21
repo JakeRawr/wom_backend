@@ -1,6 +1,5 @@
 'use strict';
-//used for filling the database
-process.env.MONGO_URL = 'mongodb://localhost/wom_development';
+//process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -10,8 +9,8 @@ require('../../server');
 
 var expect = chai.expect;
 var test = 1;
-//var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
-var url = 'localhost:3000'; 
+var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
+
 /*
 if(test) {
   after(function (done) {
@@ -24,19 +23,16 @@ if(test) {
       done();
     });
   });
-}
-*/
-/*
+}*/
+
 var jwt;
-var testaurant = 'testaurant';
+
 describe('user create/login database tests', function() {
-
-
   it('should be able to create an user, with a token sent back', function (done) {
     chai.request(url) //change this
     .post('/api/users')
-    .send({'email': 'taiga@example.com',
-           'name' : 'taiga',
+    .send({'email': 'email@example.com',
+           'name' : 'iPhone',
            'password': 'foobar123',
            'passwordConfirm': 'foobar123'})
     .end(function(err, res) {
@@ -46,27 +42,52 @@ describe('user create/login database tests', function() {
       done();
     });
   });
+});
 
-*/
-  it('should be able to login with existing email and a token sent back', function (done) {
-      chai.request(url) //change this
-      .get('/api/users')
-      .auth('taiga@example.com','foobar123')
-      .end(function(err, res) {
-     //   jwt = res.body.jwt;
-        expect(err).to.eql(null);
-        expect(res.body).to.have.property('jwt');
-        done();
-      });
-   });
-it('should add a comment in a restaurant', function (done) {
+describe('wom database tests', function(){
+  var testaurant = 'testaurant';
+  var genre = 'burger';
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'restaurant': 'burger-king'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql( 'burger-king has been added');
+      done();
+    });
+  });
+
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'restaurant': 'specialitys'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('specialitys has been added');
+      done();
+    });
+  });
+
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'restaurant': 'mcdonalds'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('mcdonalds has been added');
+      done();
+    });
+  });
+
+  it('should add a comment in a restaurant', function (done) {
     chai.request(url) //change this
     .post('/comment/add')
     .set('jwt', jwt)
-    .send({'restaurant': 'testaurant',
-           'rating': [3,3,3,3,3],
-           'genre': 'pizza',
-           'str': 'Comment, 1:12am'})
+    .send({'restaurant': 'mcdonalds',
+           'rating': [5,4,5,2,4],
+           'genre': genre,
+           'str': 'I love mcdonalds burger so freaking much'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -74,36 +95,63 @@ it('should add a comment in a restaurant', function (done) {
     });
   });
 
-   
-  it('should display a list of comments from a restaurant', function (done) {
+  it('should add a comment in a restaurant with regex', function (done) {
     chai.request(url) //change this
-    .get('/rest/comments/' + testaurant)
+    .post('/comment/add')
     .set('jwt', jwt)
+    .send({'restaurant': 'specialitys',
+           'rating': [4,3,4,1,5],
+           'genre': genre,
+           'str': 'specialitys has a unquie burger'})
     .end(function(err, res) {
-      console.log(res.body)
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('genre');
-      expect(res.body).to.have.property('ratings');
+      expect(res.text).to.be.eql('comment added');
       done();
     });
   });
 
-  it('should display genre lists from a restaurant', function (done) {
+  it('should add a comment with a different genre', function (done) {
     chai.request(url) //change this
-    .get('/rest/genres/' + testaurant)
+    .post('/comment/add')
     .set('jwt', jwt)
+    .send({'restaurant': 'burger-king',
+           'rating': [3,3,4,1,3],
+           'genre': genre,
+           'str': 'burger burger burger burger'})
     .end(function(err, res) {
-      console.log(res.body.list)
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('list');
+      expect(res.text).to.be.eql('comment added');
       done();
     });
   });
 
+  it('should add a comment with a different genre with a different restaurant', function (done) {
+    chai.request(url) //change this
+    .post('/comment/add')
+    .set('jwt', jwt)
+    .send({'restaurant': 'burger-king',
+           'rating': [1,2,4,2,3],
+           'genre': 'pizza',
+           'str': 'pizza pizza pizza pizza'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('comment added');
+      done();
+    });
+  });
+
+  it('should add a comment with a different genre', function (done) {
+    chai.request(url) //change this
+    .post('/comment/add')
+    .set('jwt', jwt)
+    .send({'restaurant': 'specialitys',
+           'rating': [2,2,4,2,3],
+           'genre': 'tacos',
+           'str': 'wait, they have taocs?'})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql('comment added');
+      done();
+    });
+  });
 });
-
-
-
-
-
-
