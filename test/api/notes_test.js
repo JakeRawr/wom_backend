@@ -28,7 +28,6 @@ if(test) {
 var jwt;
 
 describe('user create/login database tests', function() {
-
   var email = 'test123@example.com';
   it('should be unable to create an user with passwordConfrim fails', function (done) {
     chai.request(url) //change this

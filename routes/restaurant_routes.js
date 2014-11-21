@@ -24,7 +24,7 @@ module.exports = function(app, nameValidate, findGenre) {
       //if the restaurant exists, send all comments
       if (rest) {
         var list = [];
-        return res.send(rest.commentsCollection[0]);
+        return res.send(rest.commentsCollection);
       }
     });
   });
