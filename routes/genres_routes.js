@@ -25,7 +25,7 @@ module.exports = function(app) {
   //returns all restaurants associated with genre
   app.get('/listRests/:genre', function(req, res) {
     Genre.findOne({ name: req.params.genre }, function(err, data) {
-      res.send({ restList: data.restList });
+      res.send({ list: data.restList });
     });
   });
   //adding a new genre (not for users)
