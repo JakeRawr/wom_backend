@@ -1,5 +1,5 @@
 'use strict';
-process.env.MONGO_URL = 'mongodb://localhost/wom_test';
+//process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -28,7 +28,6 @@ if(test) {
 var jwt;
 
 describe('user create/login database tests', function() {
-
   var email = 'test123@example.com';
   it('should be unable to create an user with passwordConfrim fails', function (done) {
     chai.request(url) //change this
