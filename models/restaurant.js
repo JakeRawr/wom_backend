@@ -12,7 +12,7 @@ var restaurantSchema = mongoose.Schema({
     }]
 });
 //adds the new rating to the commentsCollection and updates averages
-restaurantSchema.methods.addRating = function (rating, newRatingArray) {
+restaurantSchema.methods.addRating = function(rating, newRatingArray) {
   for (var i = 0; i < this.commentsCollection.length; i++) {
     if (this.commentsCollection[i].genre == rating.genre) {
       this.commentsCollection[i].ratings.push(rating);
