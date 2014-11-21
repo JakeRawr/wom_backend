@@ -375,7 +375,7 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('restList');
+      expect(res.body).to.have.property('list');
       done();
     });
   });

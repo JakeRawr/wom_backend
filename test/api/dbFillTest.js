@@ -10,22 +10,7 @@ require('../../server');
 var expect = chai.expect;
 var test = 1;
 var url = (test) ? 'localhost:3000' : 'https://immense-fjord-7475.herokuapp.com';
-
-/*
-if(test) {
-  after(function (done) {
-    mongoose.connection.db.dropDatabase( function(err) {
-      if(err) {
-        console.log(err);
-        return;
-       }
-      console.log('collection dropped');
-      done();
-    });
-  });
-}
-*/
-var jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZlYTM2ZjExZTZiZDAyMDBmNDZkZmYifQ.chk2Xwlo1o1bOD4ohqXoSx9XpG8TzrntfDhF9nN98dc'
+var jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZlYTgwOTk2YWZlMDAyMDBmMjdhYjUifQ.TXDfccAab9J66wPy_PVhSrSmNPZ6-6y9wPqTV1xomxE'
 
 describe('user create/login database tests', function() {
   var email = 'tiger@email.com';
@@ -43,10 +28,10 @@ describe('user create/login database tests', function() {
 });
 
 describe('wom database tests', function(){
-  var testaurant1 = 'pho-bac';
-  var gen1 = 'pho';
-  var testaurant2 = 'pho-vien-anh'
-  var gen2 = 'pho';
+  var testaurant1 = '';
+  var gen1 = 'sushi-rolls';
+  var testaurant2 = 'sushi-land'
+  var gen2 = 'sushi-rolls';
 
   it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
     chai.request(url) //change this
@@ -77,9 +62,9 @@ describe('wom database tests', function(){
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': testaurant1,
-           'rating': [1,2,3,2,2],
+           'rating': [5,5,5,5,5],
            'genre': gen1,
-           'str': 'This pho is alright...I guess??'})
+           'str': 'Best sushi ever, and so cheap'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -87,14 +72,15 @@ describe('wom database tests', function(){
     });
   });
 
+
   it('should add a comment with a different genre', function (done) {
     chai.request(url) //change this
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': testaurant2,
-           'rating': [3,3,3,3,3],
+           'rating': [5,5,5,5,5],
            'genre': gen2,
-           'str': 'I actuall don\'t know anything about pho'})
+           'str': 'I love sushiiiiiiiiii'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
