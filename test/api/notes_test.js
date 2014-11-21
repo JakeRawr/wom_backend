@@ -1,5 +1,5 @@
 'use strict';
-//process.env.MONGO_URL = 'mongodb://localhost/wom_test';
+process.env.MONGO_URL = 'mongodb://localhost/wom_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -340,8 +340,8 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('genre');
-      expect(res.body).to.have.property('ratings');
+      expect(res.body[0]).to.have.property('genre');
+      expect(res.body[0]).to.have.property('ratings');
       done();
     });
   });

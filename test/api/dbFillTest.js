@@ -28,10 +28,10 @@ describe('user create/login database tests', function() {
 });
 
 describe('wom database tests', function(){
-  var testaurant1 = '';
-  var gen1 = 'sushi-rolls';
-  var testaurant2 = 'sushi-land'
-  var gen2 = 'sushi-rolls';
+  var testaurant1 = 'hash-tag';
+  var gen1 = 'ramen';
+  var testaurant2 = 'red-mill-burgers';
+  var gen2 = 'ramen';
 
   it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
     chai.request(url) //change this
@@ -64,7 +64,7 @@ describe('wom database tests', function(){
     .send({'restaurant': testaurant1,
            'rating': [5,5,5,5,5],
            'genre': gen1,
-           'str': 'Best sushi ever, and so cheap'})
+           'str': '#ramenswag'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
@@ -78,9 +78,9 @@ describe('wom database tests', function(){
     .post('/comment/add')
     .set('jwt', jwt)
     .send({'restaurant': testaurant2,
-           'rating': [5,5,5,5,5],
+           'rating': [2,4,1,4,3],
            'genre': gen2,
-           'str': 'I love sushiiiiiiiiii'})
+           'str': 'Best Ramen I have ever had, wooooooooo'})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql('comment added');
