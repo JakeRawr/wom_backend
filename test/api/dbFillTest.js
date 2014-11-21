@@ -25,21 +25,17 @@ if(test) {
   });
 }
 */
-var jwt;
+var jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDZlYTM2ZjExZTZiZDAyMDBmNDZkZmYifQ.chk2Xwlo1o1bOD4ohqXoSx9XpG8TzrntfDhF9nN98dc'
 
 describe('user create/login database tests', function() {
-  var email = 'test1234@example.com';
-  it('should be able to create an user, with a token sent back', function (done) {
+  var email = 'tiger@email.com';
+  it('should be able to login with existing email and a token sent back', function (done) {
     chai.request(url) //change this
-    .post('/api/users')
-    .send({'email': 'JackVang@gmail.com',
-           'name' : 'Jackk',
-           'password': 'foobar123',
-           'passwordConfirm': 'foobar123'})
+    .get('/api/users')
+    .auth(email,'passwordddd')
     .end(function(err, res) {
       expect(err).to.eql(null);
-      //expect(res.body).to.have.property('jwt');
-      jwt = res.body.jwt;
+      expect(res.body).to.have.property('jwt');
       done();
     });
   });
@@ -47,38 +43,27 @@ describe('user create/login database tests', function() {
 });
 
 describe('wom database tests', function(){
-  var testaurant1 = 'pho bac';
+  var testaurant1 = 'pho-bac';
   var gen1 = 'pho';
-  var testaurant2 = 'pho vien anh'
+  var testaurant2 = 'pho-vien-anh'
   var gen2 = 'pho';
-  /*
-  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
-    chai.request(url) //change this
-    .post('/rest/addRest')
-    .send({'restaurant': 'testaurant'})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.text).to.be.eql( testaurant + ' has been added');
-      done();
-    });
-  });
-*/
-// AAAAAADDSSSSSSSSSSS
-  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
-    chai.request(url) //change this
-    .post('/rest/addRest')
-    .send({'restaurant': testaurant})
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.text).to.be.eql(testaurant1+ 'has been added');
-      done();
-    });
-  });
 
   it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
     chai.request(url) //change this
     .post('/rest/addRest')
-    .send({'restaurant': 'red-mill-burgers'})
+    .send({'restaurant': testaurant1})
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.text).to.be.eql(testaurant1+ ' has been added');
+      done();
+    });
+  });
+  
+
+  it('should be able to add a restaurant if the restaurant doesn\'s exist', function (done) {
+    chai.request(url) //change this
+    .post('/rest/addRest')
+    .send({'restaurant': testaurant2})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.text).to.be.eql(testaurant2+ ' has been added');
