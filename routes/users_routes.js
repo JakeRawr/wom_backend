@@ -5,8 +5,6 @@ var validator = require('email-validator');
 module.exports = function(app, passport) {
   app.use(bodyparser.json());
   app.get('/api/users', passport.authenticate('basic', { session: false }), function(req, res) {
-    console.log(req.user.email);
-    console.log(req.user.basic.email);
     res.json({ jwt: req.user.generateToken(app.get('jwtSecret')) });
   });
   //generate new user

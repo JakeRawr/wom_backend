@@ -32,9 +32,9 @@ app.use(function(req, res, next) {
   next();
 });
 //mongoose.connect(mongooseUri, options);
-//mongoose.connect('mongodb://localhost/wom_development');
+mongoose.connect('mongodb://localhost/wom_development');
 //db test
-mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
+//mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
