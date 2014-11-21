@@ -28,7 +28,7 @@ db.once('open', function callback() {
   console.log('connected to local database');
 });
 // route middleware that will happen on every request
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   console.log(req.method, req.url);
   next();
 });
@@ -63,6 +63,6 @@ app.use('/comment', authRouter);
 require('./routes/yelpSearch_routes')(app);
 app.set('port', process.env.PORT || 3000);
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), function() {
   console.log('server running on port: %d', app.get('port'));
 });

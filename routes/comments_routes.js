@@ -3,10 +3,10 @@ var Restaurant = require('../models/restaurant');
 //Middlewares:
 //namValidate - input validation for restaurant names; lower case and no special chars
 //addCat - performs a find for genre and saves it in collection
-//ratingFill - 
-module.exports = function (app, nameValidate, addCat, ratingFill) {
+//ratingFill -
+module.exports = function(app, nameValidate, addCat, ratingFill) {
   //adding a rating obect into a
-  app.post('/add', nameValidate, addCat, ratingFill, function (req, res) {
+  app.post('/add', nameValidate, addCat, ratingFill, function(req, res) {
     var rateArray = req.body.rating;
     //from rating object;
     var catsArray = req.newRate.catsArray;
@@ -16,17 +16,17 @@ module.exports = function (app, nameValidate, addCat, ratingFill) {
       req.newRate.catsArray[i] = object;
     }
     req.user.addNewRating(req.newRate);
-    req.user.save(function (err) {
+    req.user.save(function(err) {
       if (err)
         return res.status(500).send('could not update comment');
     });
     //adds new rating object returned from middleware to restaurant
-    Restaurant.findOne({ 'name': req.body.restaurant }, function (err, rest) {
+    Restaurant.findOne({ name: req.body.restaurant }, function(err, rest) {
       if (err)
         return res.status(500).send('internal server search error');
       //if the restaurant exists, send all comments
       rest.addRating(req.newRate, req.body.rating);
-      rest.save(function (err) {
+      rest.save(function(err) {
         if (err)
           return res.status(500).send('internal server error');
       });
@@ -34,7 +34,7 @@ module.exports = function (app, nameValidate, addCat, ratingFill) {
     res.send('comment added');
   });
   //list users own comments
-  app.get('/user/list', function (req, res) {
+  app.get('/user/list', function(req, res) {
     res.send({ ratingArray: req.user.listRatingObjects() });
   });
 };

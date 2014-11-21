@@ -11,23 +11,23 @@ var userSchema = mongoose.Schema({
   ratingObjects: []
 });
 //add a rating to the user's rating model
-userSchema.methods.addNewRating = function (rating) {
+userSchema.methods.addNewRating = function(rating) {
   this.ratingObjects.push(rating);
 };
 //returns the list of rating objects for this user
-userSchema.methods.listRatingObjects = function () {
+userSchema.methods.listRatingObjects = function() {
   return this.ratingObjects;
 };
 //following three methods are those related to auth-auth
-userSchema.methods.generateHash = function (password) {
+userSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
-userSchema.methods.validPassword = function (password) {
+userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.basic.password);
 };
-userSchema.methods.generateToken = function (secret) {
-  var self = this;
-  var token = jwt.encode({ iss: self._id }, secret);
+userSchema.methods.generateToken = function(secret) {
+  var _this = this;
+  var token = jwt.encode({ iss: _this._id }, secret);
   return token;
 };
 module.exports = mongoose.model('User', userSchema);

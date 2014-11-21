@@ -10,7 +10,7 @@ var restaurantSchema = mongoose.Schema({
       avg: []
     }]
 });
-restaurantSchema.methods.addRating = function (rating, newRatingArray) {
+restaurantSchema.methods.addRating = function(rating, newRatingArray) {
   //if the comment category does not exist, add new object for that category to commentsCollection
   //and create a new average as the new ratings numbers
   for (var i = 0; i < this.commentsCollection.length; i++) {
