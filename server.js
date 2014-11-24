@@ -5,7 +5,7 @@ var bodyparser = require('body-parser');
 var passport = require('passport');
 var app = express();
 var uriUtil = require('mongodb-uri');
-var mongodbUri = 'mongodb://heroku_app31608608:niir070ammh026ph0ujvcvlt0d@ds053380.mongolab.com:53380/heroku_app31608608';
+var mongodbUri = process.env.MONGODBURI;
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 var options = {
   server: {
@@ -31,14 +31,12 @@ app.use(function(req, res, next) {
   console.log(req.method, req.url);
   next();
 });
-//mongoose.connect(mongooseUri, options);
-//mongoose.connect('mongodb://localhost/wom_development');
-//db test
+
 mongoose.connect(process.env.MONGO_URL || mongooseUri, options);
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
-app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
+app.set('jwtSecret', process.env.JWT_SECRET);
 //////////Middlewares and routers////////////////
 var nameValidate = require('./lib/validator')();
 var findGenre = require('./lib/findGenre')();

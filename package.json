@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codefellows/sea-b24-notes.git"
+    "url": "https://github.com/JakeRawr/wom_backend.git"
   },
-  "author": "tyler@codefellows.com",
+  "author": "tsunghan614@gmail.com, taiga418@hotmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/codefellows/sea-b24-notes/issues"
+    "url": "https://github.com/JakeRawr/wom_backend"
   },
-  "homepage": "https://github.com/codefellows/sea-b24-notes",
+  "homepage": "https://github.com/JakeRawr/wom_backend",
   "devDependencies": {
     "chai": "^1.9.2",
     "chai-http": "^1.0.0",

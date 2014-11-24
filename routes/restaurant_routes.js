@@ -1,6 +1,4 @@
 'use strict';
-var Rating = require('../lib/rating');
-var Average = require('../lib/averageRating');
 var Restaurant = require('../models/restaurant');
 var _ = require('lodash');
 module.exports = function(app, nameValidate, findGenre) {
@@ -23,7 +21,6 @@ module.exports = function(app, nameValidate, findGenre) {
         return res.status(500).send('server error: get comments');
       //if the restaurant exists, send all comments
       if (rest) {
-        var list = [];
         return res.send(rest.commentsCollection);
       }
     });
@@ -62,7 +59,6 @@ module.exports = function(app, nameValidate, findGenre) {
   app.get('/avg/:genre/:restaurant', findGenre, function(req, res) {
     Restaurant.findOne({ name: req.params.restaurant }, function(err, rest) {
       var overall;
-      var list = [];
       _.forEach(rest.commentsCollection, function(restData) {
         if (restData.genre === req.params.genre) {
           overall = restData.avg[0];

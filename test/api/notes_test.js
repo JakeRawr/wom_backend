@@ -340,8 +340,8 @@ describe('wom database tests', function(){
     .set('jwt', jwt)
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body).to.have.property('genre');
-      expect(res.body).to.have.property('ratings');
+      expect(res.body[0]).to.have.property('genre');
+      expect(res.body[0]).to.have.property('ratings');
       done();
     });
   });
