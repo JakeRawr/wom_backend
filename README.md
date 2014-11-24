@@ -1,6 +1,6 @@
 WOM (Word of Mouth)
 
-<img src="https://travis-ci.org/taiga418/Counter-with-travis.svg?branch=newBranch"></img>
+<img src="https://travis-ci.org/JakeRawr/wom_backend.svg?branch=master"></img>
 
 <img src="https://david-dm.org/taiga418/wom_backend.png"></img>
 
