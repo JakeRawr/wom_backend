@@ -1,6 +1,6 @@
 WOM (Word of Mouth)
 
-<img src="https://travis-ci.org/JakeRawr/wom_backend.svg?branch=master"></img>
+![alt tag](https://travis-ci.org/JakeRawr/wom_backend.svg?branch=master)
 
 <img src="https://david-dm.org/taiga418/wom_backend.png"></img>
 
